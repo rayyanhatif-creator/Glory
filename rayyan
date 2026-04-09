@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>منيو الكافيه</title>
+    <style>
+        /* --- تخصيص الألوان هنا --- */
+        :root {
+            --main-color: #e67e22; /* غير هذا الكود للون أسرتك (مثلاً أزرق #3498db) */
+            --bg-color: #fcfcfc;
+            --text-dark: #2d3436;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--bg-color);
+            margin: 0;
+            padding: 20px;
+            color: var(--text-dark);
+        }
+
+        .container {
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            padding: 40px 0;
+            border: 3px solid var(--main-color);
+            border-radius: 20px;
+            margin-bottom: 30px;
+            background-color: #fff;
+        }
+
+        h1 {
+            margin: 0;
+            color: var(--main-color);
+            font-size: 28px;
+            text-transform: uppercase;
+        }
+
+        .section-title {
+            background-color: var(--main-color);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 10px;
+            display: inline-block;
+            margin-bottom: 20px;
+            font-weight: bold;
+        }
+
+        .menu-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: white;
+            padding: 15px;
+            margin-bottom: 12px;
+            border-radius: 15px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-right: 5px solid var(--main-color);
+        }
+
+        .item-info h3 {
+            margin: 0;
+            font-size: 18px;
+        }
+
+        .item-info p {
+            margin: 5px 0 0;
+            font-size: 14px;
+            color: #636e72;
+        }
+
+        .price {
+            font-weight: bold;
+            color: var(--main-color);
+            font-size: 18px;
+        }
+
+        footer {
+            text-align: center;
+            margin-top: 40px;
+            font-size: 12px;
+            color: #b2bec3;
+        }
+    </style>
+</head>
+<body>
+
+<div class="container">
+    <header>
+        <h1>اسم الكافيه</h1>
+        <p>تجربة فريدة بلون واحد</p>
+    </header>
+
+    <div class="section-title">المشروبات</div>
+    
+    <div class="menu-item">
+        <div class="item-info">
+            <h3>مشروب اللون الخاص</h3>
+            <p>مزيج منعش بنكهة أسرتنا المميزة</p>
+        </div>
+        <div class="price">15 SR</div>
+    </div>
+
+    <div class="menu-item">
+        <div class="item-info">
+            <h3>لاتيه بارد</h3>
+            <p>قهوة مختصة مع رغوة كثيفة</p>
+        </div>
+        <div class="price">18 SR</div>
+    </div>
+
+    <div class="section-title">الحلويات</div>
+
+    <div class="menu-item">
+        <div class="item-info">
+            <h3>كيكة الألوان</h3>
+            <p>طبقات غنية مغطاة بصوص الزينة</p>
+        </div>
+        <div class="price">22 SR</div>
+    </div>
+
+    <footer>
+        جميع الحقوق محفوظة - مسابقة الأسرة
+    </footer>
+</div>
+
+</body>
+</html>
