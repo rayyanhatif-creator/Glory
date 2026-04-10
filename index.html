@@ -1,144 +1,83 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="ar">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>موقع كفي العز</title>
     <style>
-        /* تصميم الموقع باللون الأصفر والأسود فقط */
-        body { 
-            font-family: 'Tajawal', sans-serif; 
-            background-color: #FFD700; /* أصفر فاقع */
-            color: #000000; /* خط أسود */
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 20px;
-            margin: 0;
-            min-height: 100vh;
+        body {
+            background-color: yellow;
+            color: black;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 50px;
         }
 
-        .menu-container {
-            width: 100%;
-            max-width: 400px;
-            margin-bottom: 30px;
+        h1 {
+            font-size: 40px;
         }
 
-        .menu-item { 
-            background: #FFD700; 
-            padding: 15px; 
-            margin: 10px 0; 
-            border-radius: 0; 
-            display: flex; 
-            justify-content: space-between; 
-            border: 2px solid #000000; /* حدود سوداء */
-            font-weight: bold;
+        button {
+            background-color: black;
+            color: yellow;
+            padding: 15px 25px;
+            font-size: 18px;
+            border: none;
+            cursor: pointer;
+            margin-top: 20px;
         }
 
-        .chat-box { 
-            background: #000000; /* صندوق المحادثة أسود */
-            color: #FFD700; /* النص داخل الصندوق أصفر */
-            width: 90%; 
-            max-width: 400px; 
-            padding: 20px; 
-            border-radius: 10px; 
-            text-align: center; 
-            box-shadow: 10px 10px 0px #00000022;
+        input {
+            padding: 10px;
+            width: 300px;
+            font-size: 16px;
         }
 
-        input { 
-            width: 85%; 
-            padding: 10px; 
-            border: 2px solid #FFD700; 
-            background: #000000;
-            color: #FFD700;
-            border-radius: 5px; 
-            margin-top: 10px; 
-            text-align: center; 
-            outline: none;
+        #response {
+            margin-top: 20px;
+            font-size: 18px;
         }
 
-        button { 
-            background: #FFD700; 
-            color: #000000; 
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 5px; 
-            margin-top: 15px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            width: 100%;
-        }
-
-        #ai-reply { 
-            margin-top: 15px; 
-            font-size: 15px; 
-            font-weight: bold;
-        }
-
-        .footer {
-            margin-top: auto;
-            padding: 20px;
-            font-size: 12px;
-            font-weight: bold;
+        footer {
+            margin-top: 60px;
+            font-size: 14px;
         }
     </style>
 </head>
 <body>
 
-    <h2>قائمة كافيه العز ☕</h2>
+    <h1>🔥 موقع كفي العز 🔥</h1>
+    <p>نظام ذكي يعمل بالذكاء الاصطناعي عبر n8n</p>
 
-    <div class="menu-container">
-        <div class="menu-item"><span>مشروب المليون</span> <span>15 SR</span></div>
-        <div class="menu-item"><span>لاتيه الذكاء</span> <span>18 SR</span></div>
-        <div class="menu-item"><span>كيكة الألوان</span> <span>22 SR</span></div>
-    </div>
+    <input type="text" id="userInput" placeholder="اكتب طلبك هنا">
+    <br>
+    <button onclick="sendRequest()">إرسال</button>
 
-    <div class="chat-box">
-        <h3>اسأل ذكاء العز 🤖</h3>
-        <input type="text" id="userInput" placeholder="اكتب سؤالك هنا...">
-        <br>
-        <button onclick="askAI()">إرسال</button>
-        <div id="ai-reply">هلا بك.. تفضل اسأل؟</div>
-    </div>
+    <p id="response"></p>
 
-    <div class="footer">
-        جميع الحقوق محفوظة لأسرة العز © 2026
-    </div>
+    <footer>
+        جميع الحقوق محفوظة لأسرة العز
+    </footer>
 
-<script>
-    async function askAI() {
-        const inputField = document.getElementById('userInput');
-        const replyDiv = document.getElementById('ai-reply');
-        const userText = inputField.value;
-        if (!userText) return;
+    <script>
+        function sendRequest() {
+            const input = document.getElementById("userInput").value;
 
-        replyDiv.innerText = "جاري التفكير...";
-        inputField.value = "";
-
-        try {
-            const response = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/5fd4928d-a896-4846-bcad-853ea3ff0c65
-Click to copy', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chatInput: userText })
+            fetch("https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/5fd4928d-a896-4846-bcad-853ea3ff0c65", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message: input })
+            })
+            .then(response => response.json())
+            .then(data => {
+                document.getElementById("response").innerText = data.reply || JSON.stringify(data);
+            })
+            .catch(error => {
+                document.getElementById("response").innerText = "❌ صار خطأ في الاتصال";
             });
-
-            const data = await response.json();
-            
-            // إذا الرد موجود من n8n اعرضه، غير كذا أرسل خطأ 333
-            if (data && data.output) {
-                replyDiv.innerText = data.output;
-            } else {
-                replyDiv.innerText = "خطأ ٣٣٣";
-            }
-            
-        } catch (error) {
-            // في حال فشل الاتصال تماماً
-            replyDiv.innerText = "خطأ ٣٣٣";
         }
-    }
-</script>
+    </script>
+
 </body>
 </html>
