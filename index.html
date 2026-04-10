@@ -3,21 +3,17 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منيو كافيه ريان الذكي 🟡</title>
+    <title>منيو كافيه العز الذكي 🟡</title>
     <style>
-        /* تصميم الألوان والهوية */
         body {
-            background-color: #f1c40f; /* الخلفية الصفراء */
-            color: #000000; /* النصوص السوداء */
+            background-color: #f1c40f; 
+            color: #000000; 
             font-family: 'Arial', sans-serif;
             margin: 0;
             padding: 20px;
             text-align: center;
         }
-        .container {
-            max-width: 500px;
-            margin: auto;
-        }
+        .container { max-width: 500px; margin: auto; }
         .menu-card {
             background: #ffffff;
             border: 3px solid #000000;
@@ -30,14 +26,12 @@
             font-weight: bold;
             box-shadow: 5px 5px 0px #000000;
         }
-        /* قسم الذكاء الاصطناعي */
         .ai-section {
             background: #000000;
             color: #f1c40f;
             padding: 25px;
             border-radius: 20px;
             margin-top: 30px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
         }
         input {
             width: 80%;
@@ -45,7 +39,6 @@
             border-radius: 10px;
             border: none;
             margin-bottom: 10px;
-            outline: none;
         }
         button {
             background: #f1c40f;
@@ -55,43 +48,25 @@
             border: none;
             font-weight: bold;
             cursor: pointer;
-            transition: 0.3s;
         }
-        button:hover {
-            background: #d4ac0d;
-        }
-        #ai-reply {
-            margin-top: 15px;
-            line-height: 1.6;
-            font-size: 1.1rem;
-        }
+        #ai-reply { margin-top: 15px; line-height: 1.6; font-size: 1.1rem; }
     </style>
 </head>
 <body>
 
     <div class="container">
-        <h1>كافيه ريان 🟡</h1>
-        <p>تجربة فريدة بلون واحد</p>
+        <h1>كافيه العز 🟡</h1>
+        <p>كافيه الجود والكرم - تجربة فريدة</p>
 
-        <div class="menu-card">
-            <span>🥤 مشروب المليون الخاص</span>
-            <span>15 SR</span>
-        </div>
-        <div class="menu-card">
-            <span>☕ لاتيه الذكاء البارد</span>
-            <span>18 SR</span>
-        </div>
-        <div class="menu-card">
-            <span>🍰 كيكة الألوان</span>
-            <span>22 SR</span>
-        </div>
+        <div class="menu-card"><span>🥤 مشروب المليون</span><span>15 SR</span></div>
+        <div class="menu-card"><span>☕ لاتيه الذكاء</span><span>18 SR</span></div>
+        <div class="menu-card"><span>🍰 كيكة الألوان</span><span>22 SR</span></div>
 
         <div class="ai-section">
-            <h3>🤖 اسأل الباريستا الذكي</h3>
-            <p style="font-size: 0.8rem; color: #888;">(سيقترح عليك الطلب المثالي)</p>
+            <h3>🤖 باريستا كافيه العز الذكي</h3>
             <input type="text" id="userInput" placeholder="وش تنصحني أطلب؟">
             <br>
-            <button onclick="askAI()">إرسال الاستفسار</button>
+            <button onclick="askAI()">إرسال الطلب</button>
             <div id="ai-reply"></div>
         </div>
     </div>
@@ -103,29 +78,23 @@
             const userText = inputField.value;
 
             if(!userText) return;
-
             replyDiv.innerText = "جاري استشارة الباريستا... ⏳";
             
             try {
-                // الربط مع رابط الـ Webhook الخاص بك في n8n
                 const response = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/5fd4928d-a896-4846-bcad-853ea3ff0c65', {
-                    method: 'POST',
+                    method: 'POST', // تأكد أن n8n مضبوط على POST أيضاً
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chatInput: userText })
                 });
 
                 const data = await response.json();
-                
-                // عرض الرد من n8n أو رد افتراضي في حال التأخر
-                replyDiv.innerText = data.output || "يقول لك الباريستا: لازم تطلب المنيو كامل عشان تعيش التجربة صح!";
-                inputField.value = ""; // مسح الخانة بعد الإرسال
+                replyDiv.innerText = data.output || "أبشر بالسعد، طلبك مدروس!";
+                inputField.value = ""; 
                 
             } catch (error) {
-                console.error("Error:", error);
-                replyDiv.innerText = "الباريستا مشغول بتحضير المشروبات، بس نصيحته لك: خذ المنيو كامل!";
+                replyDiv.innerText = "الباريستا يقولك: كافيه العز يرحب بك، اطلب المنيو كامل وما تندم!";
             }
         }
     </script>
-
 </body>
 </html>
