@@ -2,157 +2,42 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>منيو الذكاء الاصطناعي</title>
+    <title>منيو كافيه العز الذكي 🟡</title>
     <style>
-        :root {
-            --main-yellow: #f1c40f; /* اللون الأصفر */
-            --text-black: #000000;  /* اللون الأسود */
-            --card-bg: #fffceb;     /* خلفية خفيفة للبطاقات */
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: var(--main-yellow);
-            color: var(--text-black);
-            margin: 0;
-            padding: 20px;
-            text-align: center;
-        }
-
-        .container {
-            max-width: 500px;
-            margin: auto;
-        }
-
-        header {
-            padding: 20px 0;
-            border-bottom: 2px solid var(--text-black);
-            margin-bottom: 20px;
-        }
-
-        h1 { margin: 0; font-size: 2.5rem; }
-        p { font-weight: bold; }
-
-        .item-card {
-            background-color: var(--card-bg);
-            border: 3px solid var(--text-black);
-            border-radius: 15px;
-            padding: 15px;
-            margin-bottom: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            box-shadow: 5px 5px 0px var(--text-black);
-        }
-
-        .item-info { text-align: right; }
-        .price { font-weight: 900; font-size: 1.2rem; }
-
-        /* منطقة الشات */
-        .ai-section {
-            margin-top: 30px;
-            background: var(--text-black);
-            color: var(--main-yellow);
-            padding: 20px;
-            border-radius: 20px;
-            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
-        }
-
-        input {
-            width: 80%;
-            padding: 10px;
-            border-radius: 10px;
-            border: none;
-            margin-top: 10px;
-            outline: none;
-        }
-
-        button {
-            padding: 10px 20px;
-            border-radius: 10px;
-            border: none;
-            background-color: var(--main-yellow);
-            color: var(--text-black);
-            font-weight: bold;
-            cursor: pointer;
-            margin-top: 10px;
-        }
-
-        #ai-response {
-            margin-top: 15px;
-            font-style: italic;
-            line-height: 1.6;
-        }
+        body { background-color: #f1c40f; color: #000; font-family: sans-serif; text-align: center; padding: 20px; }
+        .card { background: #fff; border: 3px solid #000; border-radius: 15px; padding: 15px; margin: 10px auto; max-width: 400px; font-weight: bold; }
+        .ai-box { background: #000; color: #f1c40f; padding: 20px; border-radius: 20px; margin-top: 20px; }
+        input { padding: 10px; border-radius: 5px; border: none; width: 70%; }
+        button { padding: 10px; background: #f1c40f; border: none; cursor: pointer; font-weight: bold; }
     </style>
 </head>
 <body>
-
-<div class="container">
-    <header>
-        <h1>كافيه ريان 🟡</h1>
-        <p>تجربة فريدة بإدارة الذكاء الاصطناعي</p>
-    </header>
-
-    <div class="menu-items">
-        <div class="item-card">
-            <div class="item-info">
-                <h3>مشروب المليون</h3>
-                <p>خلطة سرية تمنحك طاقة لا نهائية</p>
-            </div>
-            <div class="price">15 SR</div>
-        </div>
-
-        <div class="item-card">
-            <div class="item-info">
-                <h3>لاتيه الذكاء</h3>
-                <p>قهوة مختصة تجعل تفكيرك أسرع</p>
-            </div>
-            <div class="price">18 SR</div>
-        </div>
-
-        <div class="item-card">
-            <div class="item-info">
-                <h3>كيكة الألوان</h3>
-                <p>طبقات غنية تذوب في الفم</p>
-            </div>
-            <div class="price">22 SR</div>
-        </div>
-    </div>
-
-    <div class="ai-section">
+    <h1> كافيه العز  🟡</h1>
+    <div class="card">🥤 مشروب المليون - 15 SR</div>
+    <div class="card">☕ لاتيه الذكاء - 18 SR</div>
+    <div class="card">🍰 كيكة الألوان - 22 SR</div>
+    <div class="ai-box">
         <h3>🤖 اسأل الباريستا الذكي</h3>
-        <p style="color: white; font-size: 0.8rem;">(سيقنعك بطلب المنيو كاملاً!)</p>
-        <input type="text" id="user-question" placeholder="بماذا تنصحني اليوم؟">
-        <button onclick="askAI()">إرسال</button>
-        <div id="ai-response"></div>
+        <input type="text" id="ask" placeholder="وش تنصحني؟">
+        <button onclick="sendToAI()">إرسال</button>
+        <p id="reply"></p>
     </div>
-</div>
-
-<script>
-    async function askAI() {
-        const question = document.getElementById('user-question').value;
-        const responseDiv = document.getElementById('ai-response');
-        
-        if(!question) return;
-
-        responseDiv.innerText = "جاري التفكير في أفضل طريقة لإقناعك...⏳";
-
-        try {
-            const response = await fetch('رابط_الـ_WEBHOOK_حقق_هنا', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ message: question })
-            });
-            
-            const data = await response.json();
-            // n8n يجب أن يرجع نصاً داخل حقل اسمه output
-            responseDiv.innerText = data.output || "أهلاً بك! المنيو كله بانتظارك."; 
-        } catch (error) {
-            responseDiv.innerText = "الباريستا مشغول حالياً، لكنه ينصحك بطلب كل شيء!";
+    <script>
+        async function sendToAI() {
+            const msg = document.getElementById('ask').value;
+            const reply = document.getElementById('reply');
+            reply.innerText = "جاري التفكير...";
+            try {
+                const res = await fetch('هنا_تحط_الرابط_اللي_نسخته_من_n8n', {
+                    method: 'POST',
+                    headers: {'Content-Type': 'application/json'},
+                    body: JSON.stringify({ chatInput: msg })
+                });
+                const data = await res.json();
+                reply.innerText = data.output || "اطلب المنيو كامل وما تندم!";
+            } catch { reply.innerText = "الباريستا يقولك اطلب الكل!"; }
         }
-    }
-</script>
-
+    </script>
 </body>
 </html>
+https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/5fd4928d-a896-4846-bcad-853ea3ff0c65
