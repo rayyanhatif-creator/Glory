@@ -8,37 +8,60 @@
 body {
     margin: 0;
     font-family: Arial;
-    background: linear-gradient(180deg, black, #111);
+    background: black;
+    color: white;
+}
+
+/* 🔥 الهيرو */
+.hero {
+    height: 100vh;
+    background: url("https://images.unsplash.com/photo-1509042239860-f550ce710b93") center/cover;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.hero h1 {
+    font-size: 60px;
     color: yellow;
+    margin: 0;
 }
 
-/* الهيدر */
-header {
+.hero p {
+    font-size: 20px;
+    margin: 10px 0 20px;
+}
+
+.hero button {
+    padding: 15px 30px;
+    font-size: 18px;
+    background: yellow;
+    border: none;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* 🤖 الذكاء */
+#ai {
+    padding: 40px 20px;
+    background: #111;
     text-align: center;
-    padding: 25px;
-    font-size: 28px;
-    border-bottom: 2px solid yellow;
-    letter-spacing: 2px;
 }
 
-/* الذكاء الاصطناعي */
-#ai-box {
-    padding: 20px;
-    text-align: center;
-}
-
-#ai-box h2 {
-    font-size: 26px;
-    margin-bottom: 15px;
+#ai h2 {
+    color: yellow;
 }
 
 #chat {
     height: 250px;
     overflow-y: auto;
     border: 1px solid yellow;
+    margin: 20px auto;
+    max-width: 600px;
     padding: 10px;
     border-radius: 10px;
-    background: #000;
 }
 
 .message {
@@ -61,93 +84,90 @@ header {
 
 #inputArea {
     display: flex;
-    margin-top: 10px;
+    max-width: 600px;
+    margin: auto;
 }
 
-input {
+#inputArea input {
     flex: 1;
     padding: 12px;
     border: none;
 }
 
-button {
-    background: yellow;
-    color: black;
-    border: none;
+#inputArea button {
     padding: 12px 20px;
-    cursor: pointer;
+    background: yellow;
+    border: none;
     font-weight: bold;
 }
 
-/* المنتجات */
+/* ☕ المنتجات */
 #products {
-    padding: 20px;
+    padding: 40px 20px;
 }
 
 .product {
+    display: flex;
+    align-items: center;
+    gap: 15px;
     background: #111;
-    border: 1px solid yellow;
-    border-radius: 12px;
     margin-bottom: 15px;
     padding: 15px;
-    display: flex;
-    gap: 15px;
-    align-items: center;
+    border-radius: 10px;
+    border: 1px solid #333;
     transition: 0.3s;
 }
 
 .product:hover {
+    border-color: yellow;
     transform: scale(1.02);
-    box-shadow: 0 0 10px yellow;
 }
 
 .product img {
     width: 80px;
-    height: 80px;
     border-radius: 10px;
-}
-
-.product h3 {
-    margin: 0;
-}
-
-.product p {
-    margin: 5px 0;
-    font-size: 14px;
 }
 
 footer {
     text-align: center;
-    padding: 10px;
+    padding: 15px;
     font-size: 12px;
+    color: gray;
 }
 </style>
 
 </head>
 <body>
 
-<header>☕ كفي العز</header>
+<!-- 🔥 واجهة قوية -->
+<div class="hero">
+    <h1>☕ كفي العز</h1>
+    <p>قهوة بطابع مختلف</p>
+    <button onclick="document.getElementById('ai').scrollIntoView({behavior:'smooth'})">
+        ابدأ
+    </button>
+</div>
 
-<!-- الذكاء الاصطناعي -->
-<div id="ai-box">
+<!-- 🤖 ذكاء العز -->
+<div id="ai">
     <h2>🤖 ذكاء العز</h2>
 
     <div id="chat"></div>
 
     <div id="inputArea">
-        <input id="input" placeholder="اسأل عن القهوة أو المنتجات...">
+        <input id="input" placeholder="اسأل عن القهوة...">
         <button onclick="send()">إرسال</button>
     </div>
 </div>
 
-<!-- المنتجات تحت بعض -->
+<!-- ☕ المنتجات -->
 <div id="products">
 
     <div class="product">
         <img src="https://via.placeholder.com/80">
         <div>
             <h3>لاتيه</h3>
-            <p>قهوة بالحليب - 12 ريال</p>
+            <p>12 ريال</p>
         </div>
     </div>
 
@@ -155,7 +175,7 @@ footer {
         <img src="https://via.placeholder.com/80">
         <div>
             <h3>كابتشينو</h3>
-            <p>قهوة برغوة - 10 ريال</p>
+            <p>10 ريال</p>
         </div>
     </div>
 
@@ -163,15 +183,7 @@ footer {
         <img src="https://via.placeholder.com/80">
         <div>
             <h3>آيس كوفي</h3>
-            <p>قهوة باردة منعشة - 14 ريال</p>
-        </div>
-    </div>
-
-    <div class="product">
-        <img src="https://via.placeholder.com/80">
-        <div>
-            <h3>تشيز كيك</h3>
-            <p>حلا لذيذ - 15 ريال</p>
+            <p>14 ريال</p>
         </div>
     </div>
 
