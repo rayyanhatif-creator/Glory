@@ -1,83 +1,219 @@
 <!DOCTYPE html>
 <html lang="ar">
 <head>
-    <meta charset="UTF-8">
-    <title>موقع كفي العز</title>
-    <style>
-        body {
-            background-color: yellow;
-            color: black;
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-        }
+<meta charset="UTF-8">
+<title>كفي العز</title>
 
-        h1 {
-            font-size: 40px;
-        }
+<style>
+body {
+    margin: 0;
+    font-family: Arial;
+    background: linear-gradient(180deg, black, #111);
+    color: yellow;
+}
 
-        button {
-            background-color: black;
-            color: yellow;
-            padding: 15px 25px;
-            font-size: 18px;
-            border: none;
-            cursor: pointer;
-            margin-top: 20px;
-        }
+/* الهيدر */
+header {
+    text-align: center;
+    padding: 25px;
+    font-size: 28px;
+    border-bottom: 2px solid yellow;
+    letter-spacing: 2px;
+}
 
-        input {
-            padding: 10px;
-            width: 300px;
-            font-size: 16px;
-        }
+/* الذكاء الاصطناعي */
+#ai-box {
+    padding: 20px;
+    text-align: center;
+}
 
-        #response {
-            margin-top: 20px;
-            font-size: 18px;
-        }
+#ai-box h2 {
+    font-size: 26px;
+    margin-bottom: 15px;
+}
 
-        footer {
-            margin-top: 60px;
-            font-size: 14px;
-        }
-    </style>
+#chat {
+    height: 250px;
+    overflow-y: auto;
+    border: 1px solid yellow;
+    padding: 10px;
+    border-radius: 10px;
+    background: #000;
+}
+
+.message {
+    margin: 8px 0;
+    padding: 10px;
+    border-radius: 10px;
+    max-width: 70%;
+}
+
+.user {
+    background: yellow;
+    color: black;
+    margin-left: auto;
+}
+
+.bot {
+    background: #222;
+    border: 1px solid yellow;
+}
+
+#inputArea {
+    display: flex;
+    margin-top: 10px;
+}
+
+input {
+    flex: 1;
+    padding: 12px;
+    border: none;
+}
+
+button {
+    background: yellow;
+    color: black;
+    border: none;
+    padding: 12px 20px;
+    cursor: pointer;
+    font-weight: bold;
+}
+
+/* المنتجات */
+#products {
+    padding: 20px;
+}
+
+.product {
+    background: #111;
+    border: 1px solid yellow;
+    border-radius: 12px;
+    margin-bottom: 15px;
+    padding: 15px;
+    display: flex;
+    gap: 15px;
+    align-items: center;
+    transition: 0.3s;
+}
+
+.product:hover {
+    transform: scale(1.02);
+    box-shadow: 0 0 10px yellow;
+}
+
+.product img {
+    width: 80px;
+    height: 80px;
+    border-radius: 10px;
+}
+
+.product h3 {
+    margin: 0;
+}
+
+.product p {
+    margin: 5px 0;
+    font-size: 14px;
+}
+
+footer {
+    text-align: center;
+    padding: 10px;
+    font-size: 12px;
+}
+</style>
+
 </head>
 <body>
 
-    <h1>🔥 موقع كفي العز 🔥</h1>
-    <p>نظام ذكي يعمل بالذكاء الاصطناعي عبر n8n</p>
+<header>☕ كفي العز</header>
 
-    <input type="text" id="userInput" placeholder="اكتب طلبك هنا">
-    <br>
-    <button onclick="sendRequest()">إرسال</button>
+<!-- الذكاء الاصطناعي -->
+<div id="ai-box">
+    <h2>🤖 ذكاء العز</h2>
 
-    <p id="response"></p>
+    <div id="chat"></div>
 
-    <footer>
-        جميع الحقوق محفوظة لأسرة العز
-    </footer>
+    <div id="inputArea">
+        <input id="input" placeholder="اسأل عن القهوة أو المنتجات...">
+        <button onclick="send()">إرسال</button>
+    </div>
+</div>
 
-    <script>
-        function sendRequest() {
-            const input = document.getElementById("userInput").value;
+<!-- المنتجات تحت بعض -->
+<div id="products">
 
-            fetch("https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/5fd4928d-a896-4846-bcad-853ea3ff0c65", {
-                method: "POST",
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                body: JSON.stringify({ message: input })
-            })
-            .then(response => response.json())
-            .then(data => {
-                document.getElementById("response").innerText = data.reply || JSON.stringify(data);
-            })
-            .catch(error => {
-                document.getElementById("response").innerText = "❌ صار خطأ في الاتصال";
-            });
-        }
-    </script>
+    <div class="product">
+        <img src="https://via.placeholder.com/80">
+        <div>
+            <h3>لاتيه</h3>
+            <p>قهوة بالحليب - 12 ريال</p>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="https://via.placeholder.com/80">
+        <div>
+            <h3>كابتشينو</h3>
+            <p>قهوة برغوة - 10 ريال</p>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="https://via.placeholder.com/80">
+        <div>
+            <h3>آيس كوفي</h3>
+            <p>قهوة باردة منعشة - 14 ريال</p>
+        </div>
+    </div>
+
+    <div class="product">
+        <img src="https://via.placeholder.com/80">
+        <div>
+            <h3>تشيز كيك</h3>
+            <p>حلا لذيذ - 15 ريال</p>
+        </div>
+    </div>
+
+</div>
+
+<footer>
+جميع الحقوق محفوظة لأسرة العز
+</footer>
+
+<script>
+function addMessage(text, type) {
+    const div = document.createElement("div");
+    div.className = "message " + type;
+    div.innerText = text;
+    document.getElementById("chat").appendChild(div);
+    div.scrollIntoView();
+}
+
+function send() {
+    const input = document.getElementById("input");
+    const text = input.value;
+    if (!text) return;
+
+    addMessage(text, "user");
+    input.value = "";
+
+    fetch("https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/5fd4928d-a896-4846-bcad-853ea3ff0c65", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ message: text })
+    })
+    .then(res => res.json())
+    .then(data => {
+        addMessage(data.reply || "تم الرد 👍", "bot");
+    })
+    .catch(() => {
+        addMessage("❌ خطأ في السيرفر", "bot");
+    });
+}
+</script>
 
 </body>
 </html>
