@@ -3,104 +3,267 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <title>كافيه العز | تجربة فاخرة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Reem+Kufi&display=swap" rel="stylesheet">
     <style>
-        /* تصميم الموقع باللون الأصفر والأسود فقط */
-        body { 
-            font-family: 'Tajawal', sans-serif; 
-            background-color: #FFD700; /* أصفر فاقع */
-            color: #000000; /* خط أسود */
-            display: flex; 
-            flex-direction: column; 
-            align-items: center; 
-            padding: 20px;
-            margin: 0;
-            min-height: 100vh;
+        /* تعريف الألوان والمتغيرات */
+        :root {
+            --primary-color: #FFD700; /* ذهبي فاقع */
+            --secondary-color: #DAA520; /* ذهبي داكن */
+            --bg-color: #050505; /* أسود ملكي */
+            --text-color: #FFFFFF;
+            --chat-bg: rgba(20, 20, 20, 0.8); /* أسود شفاف للمحادثة */
+            --glass-effect: blur(10px) saturate(180%);
         }
 
+        body {
+            font-family: 'Cairo', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        /* تأثير خلفية متحركة خفيفة */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle at center, rgba(218, 165, 32, 0.05) 0%, rgba(5, 5, 5, 0) 70%);
+            z-index: -1;
+        }
+
+        /* الهيدر والفخامة */
+        .header {
+            text-align: center;
+            margin-bottom: 40px;
+            animation: fadeInDown 1s ease-out;
+        }
+
+        .header h1 {
+            font-family: 'Reem Kufi', sans-serif;
+            font-size: 3rem;
+            color: var(--primary-color);
+            margin: 0;
+            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
+        }
+
+        .header p {
+            font-size: 1.1rem;
+            color: #aaa;
+            margin-top: 5px;
+        }
+
+        /* تصميم القائمة (المنيو) الملكي */
         .menu-container {
             width: 100%;
-            max-width: 400px;
-            margin-bottom: 30px;
+            max-width: 450px;
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-out 0.3s both;
         }
 
-        .menu-item { 
-            background: #FFD700; 
-            padding: 15px; 
-            margin: 10px 0; 
-            border-radius: 0; 
-            display: flex; 
-            justify-content: space-between; 
-            border: 2px solid #000000; /* حدود سوداء */
-            font-weight: bold;
-        }
-
-        .chat-box { 
-            background: #000000; /* صندوق المحادثة أسود */
-            color: #FFD700; /* النص داخل الصندوق أصفر */
-            width: 90%; 
-            max-width: 400px; 
-            padding: 20px; 
-            border-radius: 10px; 
-            text-align: center; 
-            box-shadow: 10px 10px 0px #00000022;
-        }
-
-        input { 
-            width: 85%; 
-            padding: 10px; 
-            border: 2px solid #FFD700; 
-            background: #000000;
-            color: #FFD700;
-            border-radius: 5px; 
-            margin-top: 10px; 
-            text-align: center; 
-            outline: none;
-        }
-
-        button { 
-            background: #FFD700; 
-            color: #000000; 
-            border: none; 
-            padding: 10px 20px; 
-            border-radius: 5px; 
-            margin-top: 15px; 
-            cursor: pointer; 
-            font-weight: bold; 
-            width: 100%;
-        }
-
-        #ai-reply { 
-            margin-top: 15px; 
-            font-size: 15px; 
-            font-weight: bold;
-        }
-
-        .footer {
-            margin-top: auto;
+        .menu-item {
+            background: linear-gradient(145deg, #101010, #1a1a1a);
             padding: 20px;
-            font-size: 12px;
-            font-weight: bold;
+            margin: 15px 0;
+            border-radius: 15px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border: 1px solid rgba(255, 215, 0, 0.1);
+            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            cursor: pointer;
+        }
+
+        .menu-item:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(218, 165, 32, 0.2);
+            border-color: rgba(255, 215, 0, 0.3);
+        }
+
+        .item-info {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .item-icon {
+            font-size: 2rem;
+            color: var(--primary-color);
+        }
+
+        .item-name {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--text-color);
+        }
+
+        .item-price {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--primary-color);
+            background: rgba(218, 165, 32, 0.1);
+            padding: 5px 15px;
+            border-radius: 20px;
+        }
+
+        /* تصميم صندوق المحادثة الجذاب */
+        .chat-box {
+            background-color: var(--chat-bg);
+            backdrop-filter: var(--glass-effect);
+            -webkit-backdrop-filter: var(--glass-effect);
+            width: 90%;
+            max-width: 450px;
+            padding: 25px;
+            border-radius: 25px;
+            text-align: center;
+            border: 1px solid rgba(255, 215, 0, 0.15);
+            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
+            animation: fadeInUp 1s ease-out 0.6s both;
+            position: relative;
+        }
+
+        .chat-box h3 {
+            color: var(--primary-color);
+            font-size: 1.5rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+
+        /* تصميم حقل الإدخال */
+        input[type="text"] {
+            width: calc(100% - 30px);
+            padding: 15px;
+            border: 2px solid rgba(255, 215, 0, 0.2);
+            background: rgba(0, 0, 0, 0.3);
+            color: var(--text-color);
+            border-radius: 12px;
+            font-size: 1rem;
+            margin-top: 10px;
+            text-align: center;
+            outline: none;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        input[type="text"]:focus {
+            border-color: var(--primary-color);
+            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
+        }
+
+        /* تصميم الزر الفخم */
+        button {
+            background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
+            color: #000000;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 12px;
+            margin-top: 20px;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1.1rem;
+            width: 100%;
+            transition: transform 0.2s ease, box-shadow 0.3s ease;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        button:hover {
+            box-shadow: 0 10px 20px rgba(218, 165, 32, 0.4);
+        }
+
+        button:active {
+            transform: scale(0.97);
+        }
+
+        /* منطقة الرد */
+        #ai-reply {
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 10px;
+            font-size: 1rem;
+            min-height: 40px;
+            color: #eee;
+            line-height: 1.6;
+            border-left: 3px solid var(--primary-color);
+        }
+
+        /* التذييل (الفوتر) */
+        .footer {
+            margin-top: 50px;
+            padding: 20px;
+            font-size: 0.9rem;
+            color: #666;
+            text-align: center;
+            width: 100%;
+            border-top: 1px solid rgba(255, 215, 0, 0.05);
+        }
+
+        /* الحركات (Animations) */
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* تنسيق للجوال */
+        @media (max-width: 600px) {
+            .header h1 { font-size: 2.2rem; }
+            .menu-item { padding: 15px; }
+            .item-icon { font-size: 1.5rem; }
+            .item-name { font-size: 1rem; }
         }
     </style>
 </head>
 <body>
 
-    <h2>قائمة كافيه العز ☕</h2>
+    <div class="header">
+        <h1>كافيه العز</h1>
+        <p>حيث تلتقي الأصالة بالفخامة</p>
+    </div>
 
     <div class="menu-container">
-        <div class="menu-item"><span>مشروب المليون</span> <span>15 SR</span></div>
-        <div class="menu-item"><span>لاتيه الذكاء</span> <span>18 SR</span></div>
-        <div class="menu-item"><span>كيكة الألوان</span> <span>22 SR</span></div>
+        <div class="menu-item">
+            <div class="item-info">
+                <span class="item-icon">🥤</span>
+                <span class="item-name">مشروب المليون</span>
+            </div>
+            <span class="item-price">15 SR</span>
+        </div>
+        
+        <div class="menu-item">
+            <div class="item-info">
+                <span class="item-icon">☕</span>
+                <span class="item-name">لاتيه الذكاء</span>
+            </div>
+            <span class="item-price">18 SR</span>
+        </div>
+        
+        <div class="menu-item">
+            <div class="item-info">
+                <span class="item-icon">🍰</span>
+                <span class="item-name">كيكة الألوان</span>
+            </div>
+            <span class="item-price">22 SR</span>
+        </div>
     </div>
 
     <div class="chat-box">
         <h3>اسأل ذكاء العز 🤖</h3>
-        <input type="text" id="userInput" placeholder="اكتب سؤالك هنا...">
+        <input type="text" id="userInput" placeholder="وش تنصحني أطلب؟">
         <br>
-        <button onclick="askAI()">إرسال</button>
-        <div id="ai-reply">هلا بك.. تفضل اسأل؟</div>
+        <button onclick="askAI()">إرسال الطلب ☕</button>
+        <div id="ai-reply">يا هلا والله بك في كافيه العز.. آمرنا؟</div>
     </div>
 
     <div class="footer">
@@ -108,36 +271,23 @@
     </div>
 
 <script>
-    async function askAI() {
+    // هذا الكود للعرض فقط ولا يحتوي على ربط بـ n8n
+    function askAI() {
         const inputField = document.getElementById('userInput');
         const replyDiv = document.getElementById('ai-reply');
         const userText = inputField.value;
+
         if (!userText) return;
 
-        replyDiv.innerText = "جاري التفكير...";
         inputField.value = "";
+        replyDiv.innerText = "⏳ جاري استشارة باريستا العز...";
 
-        try {
-            const response = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/5fd4928d-a896-4846-bcad-853ea3ff0c65', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chatInput: userText })
-            });
-
-            const data = await response.json();
-            
-            // إذا الرد موجود من n8n اعرضه، غير كذا أرسل خطأ 333
-            if (data && data.output) {
-                replyDiv.innerText = data.output;
-            } else {
-                replyDiv.innerText = "خطأ ٣٣٣";
-            }
-            
-        } catch (error) {
-            // في حال فشل الاتصال تماماً
-            replyDiv.innerText = "خطأ ٣٣٣";
-        }
+        // محاكاة رد سريع للعرض فقط
+        setTimeout(() => {
+            replyDiv.innerText = "أبشر بسعدك! أنصحك تجرب 'لاتيه الذكاء'، هو الأكثر طلباً الحين ويروق الرأس. ☕✨";
+        }, 1500);
     }
 </script>
+
 </body>
 </html>
