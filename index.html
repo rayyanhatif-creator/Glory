@@ -1,231 +1,143 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8">
-<title>كفي العز</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>كافيه العز</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* تصميم الموقع باللون الأصفر والأسود فقط */
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            background-color: #FFD700; /* أصفر فاقع */
+            color: #000000; /* خط أسود */
+            display: flex; 
+            flex-direction: column; 
+            align-items: center; 
+            padding: 20px;
+            margin: 0;
+            min-height: 100vh;
+        }
 
-<style>
-body {
-    margin: 0;
-    font-family: Arial;
-    background: black;
-    color: white;
-}
+        .menu-container {
+            width: 100%;
+            max-width: 400px;
+            margin-bottom: 30px;
+        }
 
-/* 🔥 الهيرو */
-.hero {
-    height: 100vh;
-    background: url("https://images.unsplash.com/photo-1509042239860-f550ce710b93") center/cover;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-}
+        .menu-item { 
+            background: #FFD700; 
+            padding: 15px; 
+            margin: 10px 0; 
+            border-radius: 0; 
+            display: flex; 
+            justify-content: space-between; 
+            border: 2px solid #000000; /* حدود سوداء */
+            font-weight: bold;
+        }
 
-.hero h1 {
-    font-size: 60px;
-    color: yellow;
-    margin: 0;
-}
+        .chat-box { 
+            background: #000000; /* صندوق المحادثة أسود */
+            color: #FFD700; /* النص داخل الصندوق أصفر */
+            width: 90%; 
+            max-width: 400px; 
+            padding: 20px; 
+            border-radius: 10px; 
+            text-align: center; 
+            box-shadow: 10px 10px 0px #00000022;
+        }
 
-.hero p {
-    font-size: 20px;
-    margin: 10px 0 20px;
-}
+        input { 
+            width: 85%; 
+            padding: 10px; 
+            border: 2px solid #FFD700; 
+            background: #000000;
+            color: #FFD700;
+            border-radius: 5px; 
+            margin-top: 10px; 
+            text-align: center; 
+            outline: none;
+        }
 
-.hero button {
-    padding: 15px 30px;
-    font-size: 18px;
-    background: yellow;
-    border: none;
-    cursor: pointer;
-    font-weight: bold;
-}
+        button { 
+            background: #FFD700; 
+            color: #000000; 
+            border: none; 
+            padding: 10px 20px; 
+            border-radius: 5px; 
+            margin-top: 15px; 
+            cursor: pointer; 
+            font-weight: bold; 
+            width: 100%;
+        }
 
-/* 🤖 الذكاء */
-#ai {
-    padding: 40px 20px;
-    background: #111;
-    text-align: center;
-}
+        #ai-reply { 
+            margin-top: 15px; 
+            font-size: 15px; 
+            font-weight: bold;
+        }
 
-#ai h2 {
-    color: yellow;
-}
-
-#chat {
-    height: 250px;
-    overflow-y: auto;
-    border: 1px solid yellow;
-    margin: 20px auto;
-    max-width: 600px;
-    padding: 10px;
-    border-radius: 10px;
-}
-
-.message {
-    margin: 8px 0;
-    padding: 10px;
-    border-radius: 10px;
-    max-width: 70%;
-}
-
-.user {
-    background: yellow;
-    color: black;
-    margin-left: auto;
-}
-
-.bot {
-    background: #222;
-    border: 1px solid yellow;
-}
-
-#inputArea {
-    display: flex;
-    max-width: 600px;
-    margin: auto;
-}
-
-#inputArea input {
-    flex: 1;
-    padding: 12px;
-    border: none;
-}
-
-#inputArea button {
-    padding: 12px 20px;
-    background: yellow;
-    border: none;
-    font-weight: bold;
-}
-
-/* ☕ المنتجات */
-#products {
-    padding: 40px 20px;
-}
-
-.product {
-    display: flex;
-    align-items: center;
-    gap: 15px;
-    background: #111;
-    margin-bottom: 15px;
-    padding: 15px;
-    border-radius: 10px;
-    border: 1px solid #333;
-    transition: 0.3s;
-}
-
-.product:hover {
-    border-color: yellow;
-    transform: scale(1.02);
-}
-
-.product img {
-    width: 80px;
-    border-radius: 10px;
-}
-
-footer {
-    text-align: center;
-    padding: 15px;
-    font-size: 12px;
-    color: gray;
-}
-</style>
-
+        .footer {
+            margin-top: auto;
+            padding: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
 
-<!-- 🔥 واجهة قوية -->
-<div class="hero">
-    <h1>☕ كفي العز</h1>
-    <p>قهوة بطابع مختلف</p>
-    <button onclick="document.getElementById('ai').scrollIntoView({behavior:'smooth'})">
-        ابدأ
-    </button>
-</div>
+    <h2>قائمة كافيه العز ☕</h2>
 
-<!-- 🤖 ذكاء العز -->
-<div id="ai">
-    <h2>🤖 ذكاء العز</h2>
-
-    <div id="chat"></div>
-
-    <div id="inputArea">
-        <input id="input" placeholder="اسأل عن القهوة...">
-        <button onclick="send()">إرسال</button>
-    </div>
-</div>
-
-<!-- ☕ المنتجات -->
-<div id="products">
-
-    <div class="product">
-        <img src="https://via.placeholder.com/80">
-        <div>
-            <h3>لاتيه</h3>
-            <p>12 ريال</p>
-        </div>
+    <div class="menu-container">
+        <div class="menu-item"><span>مشروب المليون</span> <span>15 SR</span></div>
+        <div class="menu-item"><span>لاتيه الذكاء</span> <span>18 SR</span></div>
+        <div class="menu-item"><span>كيكة الألوان</span> <span>22 SR</span></div>
     </div>
 
-    <div class="product">
-        <img src="https://via.placeholder.com/80">
-        <div>
-            <h3>كابتشينو</h3>
-            <p>10 ريال</p>
-        </div>
+    <div class="chat-box">
+        <h3>اسأل ذكاء العز 🤖</h3>
+        <input type="text" id="userInput" placeholder="اكتب سؤالك هنا...">
+        <br>
+        <button onclick="askAI()">إرسال</button>
+        <div id="ai-reply">هلا بك.. تفضل اسأل؟</div>
     </div>
 
-    <div class="product">
-        <img src="https://via.placeholder.com/80">
-        <div>
-            <h3>آيس كوفي</h3>
-            <p>14 ريال</p>
-        </div>
+    <div class="footer">
+        جميع الحقوق محفوظة لأسرة العز © 2026
     </div>
-
-</div>
-
-<footer>
-جميع الحقوق محفوظة لأسرة العز
-</footer>
 
 <script>
-function addMessage(text, type) {
-    const div = document.createElement("div");
-    div.className = "message " + type;
-    div.innerText = text;
-    document.getElementById("chat").appendChild(div);
-    div.scrollIntoView();
-}
+    async function askAI() {
+        const inputField = document.getElementById('userInput');
+        const replyDiv = document.getElementById('ai-reply');
+        const userText = inputField.value;
+        if (!userText) return;
 
-function send() {
-    const input = document.getElementById("input");
-    const text = input.value;
-    if (!text) return;
+        replyDiv.innerText = "جاري التفكير...";
+        inputField.value = "";
 
-    addMessage(text, "user");
-    input.value = "";
+        try {
+            const response = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/5fd4928d-a896-4846-bcad-853ea3ff0c65', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chatInput: userText })
+            });
 
-    fetch("https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/5fd4928d-a896-4846-bcad-853ea3ff0c65", {
-        method: "POST",
-        headers: {
-            "Content-Type": "application/json"
-        },
-        body: JSON.stringify({ message: text })
-    })
-    .then(res => res.json())
-    .then(data => {
-        addMessage(data.reply || "تم الرد 👍", "bot");
-    })
-    .catch(() => {
-        addMessage("❌ خطأ في السيرفر", "bot");
-    });
-}
+            const data = await response.json();
+            
+            // إذا الرد موجود من n8n اعرضه، غير كذا أرسل خطأ 333
+            if (data && data.output) {
+                replyDiv.innerText = data.output;
+            } else {
+                replyDiv.innerText = "خطأ ٣٣٣";
+            }
+            
+        } catch (error) {
+            // في حال فشل الاتصال تماماً
+            replyDiv.innerText = "خطأ ٣٣٣";
+        }
+    }
 </script>
-
 </body>
 </html>
