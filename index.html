@@ -3,49 +3,105 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز | تجربة فاخرة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Reem+Kufi&display=swap" rel="stylesheet">
+    <title>كافيه العز الفاخر</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* تعريف الألوان والمتغيرات - كل النصوص الحين ذهبية */
-        :root {
-            --primary-color: #FFD700; /* ذهبي فاقع للنصوص والعناصر */
-            --secondary-color: #DAA520; /* ذهبي داكن للزر */
-            --bg-color: #050505; /* أسود ملكي */
-            --text-color: #FFD700; /* تغيير النص الرئيسي للذهبي */
-            --chat-bg: rgba(10, 10, 10, 0.9); /* أسود شفاف للمحادثة */
-            --glass-effect: blur(10px) saturate(180%);
-        }
-
         body {
             font-family: 'Cairo', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color); /* كل النصوص ذهبية */
+            background-color: #000000; /* خلفية سوداء ملكية */
+            color: #FFD700; /* نصوص ذهبية */
             margin: 0;
             display: flex;
             flex-direction: column;
             align-items: center;
-            min-height: 100vh;
             padding: 20px;
-            overflow-x: hidden;
-        }
-
-        /* تأثير خلفية متحركة خفيفة */
-        body::before {
-            content: '';
-            position: fixed;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(218, 165, 32, 0.08) 0%, rgba(5, 5, 5, 0) 70%);
-            z-index: -1;
-        }
-
-        /* الهيدر والفخامة */
-        .header {
-            text-align: center;
-            margin-bottom: 40px;
-            animation: fadeInDown 1s ease-out;
         }
 
         .header h1 {
-            font-family: 'Reem Kufi', sans-serif;
+            color: #FFD700;
             font-size: 3rem;
-            color
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.5);
+        }
+
+        .menu-container {
+            width: 100%;
+            max-width: 400px;
+        }
+
+        .menu-item {
+            background: #111;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 12px;
+            display: flex;
+            justify-content: space-between;
+            border: 1px solid #FFD700;
+            color: #FFD700;
+            font-weight: bold;
+        }
+
+        .chat-box {
+            background: #111;
+            width: 90%;
+            max-width: 400px;
+            padding: 25px;
+            border-radius: 20px;
+            text-align: center;
+            border: 2px solid #FFD700;
+            margin-top: 20px;
+        }
+
+        input {
+            width: 85%;
+            padding: 12px;
+            background: #000;
+            border: 1px solid #FFD700;
+            color: #FFD700;
+            border-radius: 8px;
+            text-align: center;
+            margin-bottom: 15px;
+            font-size: 1rem;
+        }
+
+        button {
+            background: #FFD700;
+            color: #000;
+            border: none;
+            padding: 12px 30px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: bold;
+            width: 100%;
+            font-size: 1.1rem;
+        }
+
+        #ai-reply {
+            margin-top: 20px;
+            color: #FFD700;
+            font-weight: bold;
+            min-height: 40px;
+        }
+
+        .footer {
+            margin-top: 40px;
+            color: #FFD700;
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="header">
+        <h1>كافيه العز</h1>
+    </div>
+
+    <div class="menu-container">
+        <div class="menu-item"><span>مشروب المليون</span> <span>15 SR</span></div>
+        <div class="menu-item"><span>لاتيه الذكاء</span> <span>18 SR</span></div>
+        <div class="menu-item"><span>كيكة الألوان</span> <span>22 SR</span></div>
+    </div>
+
+    <div class="chat-box">
+        <h3 style="color: #FFD700;">اسأل ذكاء العز 🤖</h3>
+        <input type
