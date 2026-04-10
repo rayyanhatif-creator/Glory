@@ -6,20 +6,20 @@
     <title>كافيه العز | تجربة فاخرة</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&family=Reem+Kufi&display=swap" rel="stylesheet">
     <style>
-        /* تعريف الألوان والمتغيرات */
+        /* تعريف الألوان والمتغيرات - كل النصوص الحين ذهبية */
         :root {
-            --primary-color: #FFD700; /* ذهبي فاقع */
-            --secondary-color: #DAA520; /* ذهبي داكن */
+            --primary-color: #FFD700; /* ذهبي فاقع للنصوص والعناصر */
+            --secondary-color: #DAA520; /* ذهبي داكن للزر */
             --bg-color: #050505; /* أسود ملكي */
-            --text-color: #FFFFFF;
-            --chat-bg: rgba(20, 20, 20, 0.8); /* أسود شفاف للمحادثة */
+            --text-color: #FFD700; /* تغيير النص الرئيسي للذهبي */
+            --chat-bg: rgba(10, 10, 10, 0.9); /* أسود شفاف للمحادثة */
             --glass-effect: blur(10px) saturate(180%);
         }
 
         body {
             font-family: 'Cairo', sans-serif;
             background-color: var(--bg-color);
-            color: var(--text-color);
+            color: var(--text-color); /* كل النصوص ذهبية */
             margin: 0;
             display: flex;
             flex-direction: column;
@@ -34,7 +34,7 @@
             content: '';
             position: fixed;
             top: 0; left: 0; width: 100%; height: 100%;
-            background: radial-gradient(circle at center, rgba(218, 165, 32, 0.05) 0%, rgba(5, 5, 5, 0) 70%);
+            background: radial-gradient(circle at center, rgba(218, 165, 32, 0.08) 0%, rgba(5, 5, 5, 0) 70%);
             z-index: -1;
         }
 
@@ -48,246 +48,4 @@
         .header h1 {
             font-family: 'Reem Kufi', sans-serif;
             font-size: 3rem;
-            color: var(--primary-color);
-            margin: 0;
-            text-shadow: 0 0 15px rgba(255, 215, 0, 0.5);
-        }
-
-        .header p {
-            font-size: 1.1rem;
-            color: #aaa;
-            margin-top: 5px;
-        }
-
-        /* تصميم القائمة (المنيو) الملكي */
-        .menu-container {
-            width: 100%;
-            max-width: 450px;
-            margin-bottom: 40px;
-            animation: fadeInUp 1s ease-out 0.3s both;
-        }
-
-        .menu-item {
-            background: linear-gradient(145deg, #101010, #1a1a1a);
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 15px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            border: 1px solid rgba(255, 215, 0, 0.1);
-            box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
-            cursor: pointer;
-        }
-
-        .menu-item:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(218, 165, 32, 0.2);
-            border-color: rgba(255, 215, 0, 0.3);
-        }
-
-        .item-info {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .item-icon {
-            font-size: 2rem;
-            color: var(--primary-color);
-        }
-
-        .item-name {
-            font-size: 1.2rem;
-            font-weight: 700;
-            color: var(--text-color);
-        }
-
-        .item-price {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: var(--primary-color);
-            background: rgba(218, 165, 32, 0.1);
-            padding: 5px 15px;
-            border-radius: 20px;
-        }
-
-        /* تصميم صندوق المحادثة الجذاب */
-        .chat-box {
-            background-color: var(--chat-bg);
-            backdrop-filter: var(--glass-effect);
-            -webkit-backdrop-filter: var(--glass-effect);
-            width: 90%;
-            max-width: 450px;
-            padding: 25px;
-            border-radius: 25px;
-            text-align: center;
-            border: 1px solid rgba(255, 215, 0, 0.15);
-            box-shadow: 0 15px 35px rgba(0, 0, 0, 0.4);
-            animation: fadeInUp 1s ease-out 0.6s both;
-            position: relative;
-        }
-
-        .chat-box h3 {
-            color: var(--primary-color);
-            font-size: 1.5rem;
-            margin-top: 0;
-            margin-bottom: 20px;
-        }
-
-        /* تصميم حقل الإدخال */
-        input[type="text"] {
-            width: calc(100% - 30px);
-            padding: 15px;
-            border: 2px solid rgba(255, 215, 0, 0.2);
-            background: rgba(0, 0, 0, 0.3);
-            color: var(--text-color);
-            border-radius: 12px;
-            font-size: 1rem;
-            margin-top: 10px;
-            text-align: center;
-            outline: none;
-            transition: border-color 0.3s ease, box-shadow 0.3s ease;
-        }
-
-        input[type="text"]:focus {
-            border-color: var(--primary-color);
-            box-shadow: 0 0 15px rgba(255, 215, 0, 0.2);
-        }
-
-        /* تصميم الزر الفخم */
-        button {
-            background: linear-gradient(145deg, var(--primary-color), var(--secondary-color));
-            color: #000000;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 12px;
-            margin-top: 20px;
-            cursor: pointer;
-            font-weight: 700;
-            font-size: 1.1rem;
-            width: 100%;
-            transition: transform 0.2s ease, box-shadow 0.3s ease;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-        }
-
-        button:hover {
-            box-shadow: 0 10px 20px rgba(218, 165, 32, 0.4);
-        }
-
-        button:active {
-            transform: scale(0.97);
-        }
-
-        /* منطقة الرد */
-        #ai-reply {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 255, 255, 0.05);
-            border-radius: 10px;
-            font-size: 1rem;
-            min-height: 40px;
-            color: #eee;
-            line-height: 1.6;
-            border-left: 3px solid var(--primary-color);
-        }
-
-        /* التذييل (الفوتر) */
-        .footer {
-            margin-top: 50px;
-            padding: 20px;
-            font-size: 0.9rem;
-            color: #666;
-            text-align: center;
-            width: 100%;
-            border-top: 1px solid rgba(255, 215, 0, 0.05);
-        }
-
-        /* الحركات (Animations) */
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* تنسيق للجوال */
-        @media (max-width: 600px) {
-            .header h1 { font-size: 2.2rem; }
-            .menu-item { padding: 15px; }
-            .item-icon { font-size: 1.5rem; }
-            .item-name { font-size: 1rem; }
-        }
-    </style>
-</head>
-<body>
-
-    <div class="header">
-        <h1>كافيه العز</h1>
-        <p>حيث تلتقي الأصالة بالفخامة</p>
-    </div>
-
-    <div class="menu-container">
-        <div class="menu-item">
-            <div class="item-info">
-                <span class="item-icon">🥤</span>
-                <span class="item-name">مشروب المليون</span>
-            </div>
-            <span class="item-price">15 SR</span>
-        </div>
-        
-        <div class="menu-item">
-            <div class="item-info">
-                <span class="item-icon">☕</span>
-                <span class="item-name">لاتيه الذكاء</span>
-            </div>
-            <span class="item-price">18 SR</span>
-        </div>
-        
-        <div class="menu-item">
-            <div class="item-info">
-                <span class="item-icon">🍰</span>
-                <span class="item-name">كيكة الألوان</span>
-            </div>
-            <span class="item-price">22 SR</span>
-        </div>
-    </div>
-
-    <div class="chat-box">
-        <h3>اسأل ذكاء العز 🤖</h3>
-        <input type="text" id="userInput" placeholder="وش تنصحني أطلب؟">
-        <br>
-        <button onclick="askAI()">إرسال الطلب ☕</button>
-        <div id="ai-reply">يا هلا والله بك في كافيه العز.. آمرنا؟</div>
-    </div>
-
-    <div class="footer">
-        جميع الحقوق محفوظة لأسرة العز © 2026
-    </div>
-
-<script>
-    // هذا الكود للعرض فقط ولا يحتوي على ربط بـ n8n
-    function askAI() {
-        const inputField = document.getElementById('userInput');
-        const replyDiv = document.getElementById('ai-reply');
-        const userText = inputField.value;
-
-        if (!userText) return;
-
-        inputField.value = "";
-        replyDiv.innerText = "⏳ جاري استشارة باريستا العز...";
-
-        // محاكاة رد سريع للعرض فقط
-        setTimeout(() => {
-            replyDiv.innerText = "أبشر بسعدك! أنصحك تجرب 'لاتيه الذكاء'، هو الأكثر طلباً الحين ويروق الرأس. ☕✨";
-        }, 1500);
-    }
-</script>
-
-</body>
-</html>
+            color
