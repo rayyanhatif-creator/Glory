@@ -10,21 +10,16 @@
         body { font-family: 'Tajawal', sans-serif; background-color: var(--black); color: var(--gold); display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; min-height: 100vh; }
         h1 { font-size: clamp(35px, 8vw, 50px); margin: 20px 0; text-shadow: 0 0 15px rgba(255,215,0,0.5); }
         .hero-img { width: 100%; max-width: 550px; border-radius: 20px; border: 2px solid var(--gold); height: 250px; object-fit: cover; margin-bottom: 20px; }
-        
         .team-box { width: 100%; max-width: 550px; background: #111; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid #222; margin-bottom: 20px; box-sizing: border-box; }
         .on-duty { margin-top: 10px; font-size: 14px; color: #fff; background: rgba(255, 215, 0, 0.2); padding: 6px 15px; border-radius: 25px; border: 1px solid var(--gold); display: inline-block; }
-        
         .menu-list { width: 100%; max-width: 550px; margin-bottom: 20px; }
         .menu-item { background: #080808; padding: 18px; margin: 10px 0; border-radius: 15px; display: flex; justify-content: space-between; border-right: 5px solid var(--gold); font-weight: bold; }
-
         .order-container { background: var(--gold); color: #000; width: 100%; max-width: 550px; padding: 30px; border-radius: 30px; text-align: center; box-sizing: border-box; }
         input { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #000; margin-top: 15px; font-family: 'Tajawal'; font-weight: bold; text-align: center; font-size: 16px; box-sizing: border-box; }
         .btn-group { display: flex; gap: 10px; margin-top: 15px; }
         .btn-send { flex: 2; background: #000; color: var(--gold); padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; }
         .btn-back { flex: 1; background: #444; color: #fff; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; }
-
         #ai-reply-box { display: none; margin-top: 20px; padding: 20px; background: #fff; color: #000; border-radius: 20px; border: 4px solid #000; font-weight: bold; cursor: pointer; }
-        
         .yellow-philosophy { width: 100%; max-width: 550px; margin-top: 40px; padding: 25px; background: rgba(255, 215, 0, 0.05); border-radius: 20px; border: 1px dashed var(--gold); text-align: center; box-sizing: border-box; }
         .story-box { width: 100%; max-width: 550px; margin: 40px 0; padding: 30px; background: #111; border-radius: 20px; border: 1px solid #333; line-height: 1.8; text-align: justify; box-sizing: border-box; }
         .footer { margin-bottom: 50px; font-size: 12px; opacity: 0.4; }
@@ -80,18 +75,28 @@
             const input = document.getElementById('userInput');
             const box = document.getElementById('ai-reply-box');
             const text = document.getElementById('ai-text');
+            
             if (!input.value.trim()) return;
+
+            // --- الميزة الجديدة: مسح النص فوراً عند الإرسال ---
+            const savedText = input.value; // نحفظ النص عشان نرسله للـ AI
+            input.value = ""; // نمسح الخانة فوراً
+            // ---------------------------------------------
+
             box.style.display = "block";
             text.innerText = "⏳ جاري التجهيز...";
+
             try {
                 const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chatInput: input.value })
+                    body: JSON.stringify({ chatInput: savedText })
                 });
                 const data = await res.json();
                 text.innerText = data.output || data.text || "تم استلام طلبك!";
-            } catch (e) { text.innerText = "أبشر، طلبك وصل!"; }
+            } catch (e) { 
+                text.innerText = "أبشر، طلبك وصل!"; 
+            }
         }
 
         function goBack() {
