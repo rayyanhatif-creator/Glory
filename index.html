@@ -3,101 +3,147 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز - ذكاء اصطناعي</title>
+    <title>كافيه العز | تجربة الذكاء</title>
+    
+    <link rel="icon" type="image/png" href="logo.png">
+    
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    
     <style>
+        :root {
+            --primary-gold: #FFD700;
+            --dark-bg: #000000;
+            --card-bg: #111111;
+        }
+
         body { 
             font-family: 'Tajawal', sans-serif; 
-            background-color: #000000; 
-            color: #FFD700; 
+            background-color: var(--dark-bg); 
+            color: var(--primary-gold); 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            padding: 20px;
-            margin: 0;
-            min-height: 100vh;
+            padding: 20px; 
+            margin: 0; 
+            min-height: 100vh; 
         }
 
-        h1 {
-            color: #FFD700;
-            border-bottom: 2px solid #FFD700;
-            padding-bottom: 15px;
-            margin-bottom: 40px;
-            margin-top: 50px; 
-            font-size: 32px;
-            font-weight: 700;
+        /* تنسيق العنوان الرئيسي */
+        h1 { 
+            color: var(--primary-gold); 
+            border-bottom: 2px solid var(--primary-gold); 
+            padding-bottom: 15px; 
+            margin-bottom: 40px; 
+            margin-top: 60px; 
+            font-size: 36px; 
+            font-weight: 700; 
+            text-shadow: 0 0 10px rgba(255, 215, 0, 0.2);
         }
 
+        /* تنسيق قائمة المنتجات */
         .menu-container { 
             width: 100%; 
-            max-width: 400px; 
+            max-width: 450px; 
             margin-bottom: 40px; 
         }
+        
         .menu-item { 
-            background: #111; 
-            padding: 18px; 
-            margin: 12px 0; 
+            background: var(--card-bg); 
+            padding: 20px; 
+            margin: 15px 0; 
             display: flex; 
             justify-content: space-between; 
-            border: 1px solid #FFD700; 
-            font-weight: bold;
-            border-radius: 12px;
-            font-size: 18px;
+            align-items: center;
+            border: 1px solid var(--primary-gold); 
+            border-radius: 15px; 
+            font-weight: bold; 
+            font-size: 20px; 
+            transition: transform 0.3s ease;
+        }
+        
+        .menu-item:hover {
+            transform: scale(1.02);
         }
 
-        /* تعديل الصندوق الأصفر ليكون كل شيء في النص */
+        .price {
+            color: #fff;
+            background: rgba(255, 215, 0, 0.1);
+            padding: 5px 12px;
+            border-radius: 8px;
+            font-size: 16px;
+        }
+
+        /* صندوق المحادثة الذهبي */
         .chat-box { 
-            background: #FFD700; 
-            color: #000000; 
-            width: 90%; 
-            max-width: 440px; 
-            padding: 30px; 
-            border-radius: 30px; 
+            background: var(--primary-gold); 
+            color: #000; 
+            width: 95%; 
+            max-width: 450px; 
+            padding: 35px; 
+            border-radius: 35px; 
             display: flex;
             flex-direction: column;
-            align-items: center; /* يخلي كل المحتوى في النص */
+            align-items: center;
             text-align: center; 
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
-            box-sizing: border-box; /* يضمن الأبعاد تكون دقيقة */
+            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.25);
+            box-sizing: border-box;
+        }
+
+        .chat-box h3 {
+            margin-top: 0;
+            font-size: 24px;
+            margin-bottom: 25px;
         }
 
         input { 
-            width: 100%; /* تعديل العرض ليتناسب مع الحاوية */
-            max-width: 380px;
-            padding: 14px; 
+            width: 100%; 
+            padding: 16px; 
             border: 2px solid #000; 
-            border-radius: 12px; 
-            margin-top: 15px; 
-            text-align: center;
-            font-size: 16px;
-            font-weight: bold;
+            border-radius: 15px; 
+            margin-top: 10px; 
+            text-align: center; 
+            font-size: 18px; 
+            font-weight: bold; 
             font-family: 'Tajawal', sans-serif;
+            outline: none;
         }
 
         button { 
-            background: #000000; 
-            color: #FFD700; 
+            background: #000; 
+            color: var(--primary-gold); 
             border: none; 
-            padding: 14px; 
-            border-radius: 12px; 
+            padding: 16px; 
+            border-radius: 15px; 
             margin-top: 20px; 
             cursor: pointer; 
-            font-weight: bold; 
-            width: 100%;
-            max-width: 380px;
-            font-size: 18px;
+            font-weight: 700; 
+            width: 100%; 
+            font-size: 20px; 
+            transition: all 0.3s ease;
+        }
+
+        button:hover {
+            background: #222;
+            letter-spacing: 1px;
         }
 
         #ai-reply { 
-            margin-top: 20px; 
-            font-size: 17px; 
-            font-weight: bold; 
-            line-height: 1.7; 
+            margin-top: 25px; 
+            font-size: 18px; 
+            font-weight: 700; 
+            line-height: 1.8; 
             width: 100%;
-            text-align: center; /* يضمن سنترة رد الذكاء */
+            text-align: center;
+            white-space: pre-wrap;
         }
 
-        .footer { margin-top: auto; padding: 25px; font-size: 13px; opacity: 0.7; }
+        .footer { 
+            margin-top: auto; 
+            padding: 30px; 
+            font-size: 14px; 
+            opacity: 0.6; 
+            color: #fff;
+        }
     </style>
 </head>
 <body>
@@ -105,16 +151,25 @@
     <h1>كـافـيـه الـعـز</h1>
 
     <div class="menu-container">
-        <div class="menu-item"><span>🥤 مشروب المليون</span> <span>15 SR</span></div>
-        <div class="menu-item"><span>☕ لاتيه الذكاء</span> <span>18 SR</span></div>
-        <div class="menu-item"><span>🍰 كيكة الألوان</span> <span>22 SR</span></div>
+        <div class="menu-item">
+            <span>🥤 مشروب المليون</span> 
+            <span class="price">15 SR</span>
+        </div>
+        <div class="menu-item">
+            <span>☕ لاتيه الذكاء</span> 
+            <span class="price">18 SR</span>
+        </div>
+        <div class="menu-item">
+            <span>🍰 كيكة الألوان</span> 
+            <span class="price">22 SR</span>
+        </div>
     </div>
 
     <div class="chat-box">
-        <h3>اسأل ذكاء العز 🤖</h3>
-        <input type="text" id="userInput" placeholder="اكتب سؤالك واضغط Enter" onkeypress="handleKeyPress(event)">
-        <button onclick="askAI()">إرسال الطلب ☕</button>
-        <div id="ai-reply">يا هلا بك.. وش بخاطرك اليوم؟</div>
+        <h3>اسأل ذكاء العز 🤖✨</h3>
+        <input type="text" id="userInput" placeholder="اطلب اللي بخاطرك هنا..." onkeypress="handleKeyPress(event)">
+        <button onclick="askAI()">إرسال الطلب ☕🔥</button>
+        <div id="ai-reply">يا هلا بضيف العز.. وش ودك نقهويك اليوم؟ 🤩</div>
     </div>
 
     <div class="footer">جميع الحقوق محفوظة لأسرة العز © 2026</div>
@@ -128,7 +183,7 @@
         const userText = inputField.value;
         if (!userText) return;
 
-        replyDiv.innerText = "⏳ يجهز الرد الفخم...";
+        replyDiv.innerText = "⏳ يجهز الرد الفخم... ✨";
         inputField.value = "";
 
         try {
@@ -139,12 +194,12 @@
             });
 
             const data = await response.json();
-            let output = data.output || data.text || (Array.isArray(data) && data[0].output) || "آمرنا؟ جرب تسأل مرة ثانية";
+            let output = data.output || data.text || (Array.isArray(data) && data[0].output) || "آمرنا؟ جرب تسأل مرة ثانية ☕";
             
             replyDiv.innerText = output;
 
         } catch (error) {
-            replyDiv.innerText = "❌ فشل الاتصال. تأكد من تشغيل n8n.";
+            replyDiv.innerText = "❌ فشل الاتصال. تأكد أن n8n فعال (Active) والمفتاح أخضر";
         }
     }
 </script>
