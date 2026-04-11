@@ -28,7 +28,6 @@
             font-weight: 700;
         }
 
-        /* تنسيق المنيو (المنتجات) */
         .menu-container { 
             width: 100%; 
             max-width: 400px; 
@@ -46,6 +45,7 @@
             font-size: 18px;
         }
 
+        /* تعديل الصندوق الأصفر ليكون كل شيء في النص */
         .chat-box { 
             background: #FFD700; 
             color: #000000; 
@@ -53,12 +53,17 @@
             max-width: 440px; 
             padding: 30px; 
             border-radius: 30px; 
+            display: flex;
+            flex-direction: column;
+            align-items: center; /* يخلي كل المحتوى في النص */
             text-align: center; 
             box-shadow: 0 15px 40px rgba(255, 215, 0, 0.3);
+            box-sizing: border-box; /* يضمن الأبعاد تكون دقيقة */
         }
 
         input { 
-            width: 88%; 
+            width: 100%; /* تعديل العرض ليتناسب مع الحاوية */
+            max-width: 380px;
             padding: 14px; 
             border: 2px solid #000; 
             border-radius: 12px; 
@@ -66,6 +71,7 @@
             text-align: center;
             font-size: 16px;
             font-weight: bold;
+            font-family: 'Tajawal', sans-serif;
         }
 
         button { 
@@ -78,6 +84,7 @@
             cursor: pointer; 
             font-weight: bold; 
             width: 100%;
+            max-width: 380px;
             font-size: 18px;
         }
 
@@ -86,6 +93,8 @@
             font-size: 17px; 
             font-weight: bold; 
             line-height: 1.7; 
+            width: 100%;
+            text-align: center; /* يضمن سنترة رد الذكاء */
         }
 
         .footer { margin-top: auto; padding: 25px; font-size: 13px; opacity: 0.7; }
@@ -132,11 +141,8 @@
             const data = await response.json();
             let output = data.output || data.text || (Array.isArray(data) && data[0].output) || "آمرنا؟ جرب تسأل مرة ثانية";
             
-            if (data.message === "Workflow was started") {
-                replyDiv.innerText = "✅ ننتظر رد n8n... تأكد من ضبط الـ Respond في n8n.";
-            } else {
-                replyDiv.innerText = output;
-            }
+            replyDiv.innerText = output;
+
         } catch (error) {
             replyDiv.innerText = "❌ فشل الاتصال. تأكد من تشغيل n8n.";
         }
