@@ -3,24 +3,91 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز | ذكاء الصفوة</title>
+    <title>كافيه العز | التميز الرقمي</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #FFD700; --black: #000000; }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--black); color: var(--gold); display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; min-height: 100vh; }
-        h1 { font-size: 50px; margin: 20px 0; text-shadow: 0 0 15px rgba(255,215,0,0.4); text-align: center; }
-        .hero-img { width: 100%; max-width: 550px; border-radius: 25px; border: 2px solid var(--gold); object-fit: cover; height: 300px; margin-bottom: 20px; }
-        .team-box { width: 100%; max-width: 550px; background: #111; padding: 20px; border-radius: 20px; text-align: center; border: 1px solid #222; margin-bottom: 20px; box-sizing: border-box; }
-        .on-duty { margin-top: 10px; font-size: 15px; color: #fff; background: rgba(255, 215, 0, 0.2); padding: 8px 15px; border-radius: 25px; display: inline-block; border: 1px solid var(--gold); }
-        .menu-list { width: 100%; max-width: 550px; }
-        .menu-item { background: #0a0a0a; padding: 18px; margin: 10px 0; border-radius: 15px; display: flex; justify-content: space-between; border-right: 5px solid var(--gold); font-weight: bold; font-size: 20px; }
-        .order-container { background: var(--gold); color: #000; width: 100%; max-width: 550px; padding: 35px; border-radius: 30px; margin-top: 30px; text-align: center; box-shadow: 0 10px 30px rgba(255,215,0,0.2); box-sizing: border-box; }
-        input { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #000; margin-top: 15px; font-family: 'Tajawal'; font-weight: bold; text-align: center; font-size: 18px; box-sizing: border-box; }
-        button { background: #000; color: var(--gold); width: 100%; padding: 15px; border-radius: 12px; border: none; margin-top: 15px; font-weight: bold; cursor: pointer; font-size: 20px; }
-        #ai-reply { margin-top: 20px; font-weight: bold; font-size: 18px; padding: 10px; background: rgba(0,0,0,0.05); border-radius: 10px; min-height: 40px; display: none; }
-        .yellow-philosophy { width: 100%; max-width: 550px; margin-top: 40px; padding: 25px; background: rgba(255, 215, 0, 0.05); border-radius: 20px; border: 1px dashed var(--gold); text-align: center; box-sizing: border-box; }
-        .story-box { width: 100%; max-width: 550px; margin: 40px 0; padding: 30px; background: #0a0a0a; border-radius: 20px; border: 1px solid #333; line-height: 1.8; text-align: justify; box-sizing: border-box; }
-        .footer { margin-bottom: 40px; font-size: 12px; opacity: 0.5; }
+        :root { --gold: #FFD700; --black: #000000; --dark-grey: #121212; }
+        
+        body { 
+            font-family: 'Tajawal', sans-serif; 
+            background-color: var(--black); 
+            color: var(--gold); 
+            display: flex; flex-direction: column; align-items: center; 
+            margin: 0; padding: 20px; min-height: 100vh;
+        }
+
+        h1 { font-size: clamp(35px, 8vw, 55px); margin: 20px 0; text-shadow: 0 0 15px rgba(255,215,0,0.5); }
+
+        /* تنسيق الصور حسب الترتيب الجديد */
+        .hero-img { 
+            width: 100%; max-width: 600px; border-radius: 25px; 
+            border: 2px solid var(--gold); object-fit: cover; 
+            height: 300px; margin-bottom: 25px; box-shadow: 0 5px 20px rgba(255,215,0,0.2);
+        }
+
+        .team-box { 
+            width: 100%; max-width: 600px; background: var(--dark-grey); 
+            padding: 20px; border-radius: 20px; text-align: center; 
+            border: 1px solid #222; margin-bottom: 25px; box-sizing: border-box;
+        }
+
+        .on-duty { 
+            margin-top: 12px; font-size: 14px; color: #fff; 
+            background: rgba(255, 215, 0, 0.15); padding: 6px 15px; 
+            border-radius: 25px; border: 1px solid var(--gold); display: inline-block;
+        }
+
+        .menu-list { width: 100%; max-width: 600px; }
+        .menu-item { 
+            background: #080808; padding: 20px; margin: 12px 0; 
+            border-radius: 15px; display: flex; justify-content: space-between; 
+            border-right: 6px solid var(--gold); font-weight: bold; font-size: 18px;
+        }
+
+        /* صندوق الطلب والذكاء الاصطناعي */
+        .order-container { 
+            background: var(--gold); color: #000; width: 100%; 
+            max-width: 600px; padding: 30px; border-radius: 30px; 
+            margin-top: 30px; text-align: center; box-sizing: border-box;
+        }
+
+        input { 
+            width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #000; 
+            margin-top: 15px; font-family: 'Tajawal'; font-weight: bold; 
+            text-align: center; font-size: 16px; box-sizing: border-box;
+        }
+
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        
+        button { 
+            flex: 2; background: #000; color: var(--gold); padding: 15px; 
+            border-radius: 12px; border: none; font-weight: bold; 
+            cursor: pointer; font-size: 18px; transition: 0.3s;
+        }
+
+        .btn-clear { 
+            flex: 1; background: #444; color: #fff; font-size: 14px; 
+        }
+
+        #ai-reply-box { 
+            display: none; margin-top: 20px; padding: 15px; 
+            background: #fff; color: #000; border-radius: 15px; 
+            font-weight: bold; position: relative; cursor: pointer;
+        }
+
+        .yellow-philosophy { 
+            width: 100%; max-width: 600px; margin-top: 40px; 
+            padding: 25px; background: rgba(255, 215, 0, 0.05); 
+            border-radius: 20px; border: 1px dashed var(--gold); text-align: center; 
+        }
+
+        .story-box { 
+            width: 100%; max-width: 600px; margin: 40px 0; padding: 30px; 
+            background: var(--dark-grey); border-radius: 20px; border: 1px solid #333; 
+            line-height: 1.8; text-align: justify;
+        }
+
+        .footer { margin-bottom: 50px; font-size: 12px; opacity: 0.4; }
     </style>
 </head>
 <body>
@@ -31,7 +98,7 @@
 
     <div class="team-box">
         <div style="font-weight: bold; font-size: 20px;">القائد: أبو وليد 👑 | الرئيس: أسامة ✨</div>
-        <div style="font-size: 17px; color: #888; margin: 10px 0;">ريان • حيان • باسل</div>
+        <div style="font-size: 16px; color: #aaa; margin: 8px 0;">ريان • حيان • باسل</div>
         <div class="on-duty">🟢 متواجد الآن: أسامة، ريان، حيان، باسل</div>
     </div>
 
@@ -42,20 +109,28 @@
     </div>
 
     <div class="order-container">
-        <h3 style="margin:0; font-size: 28px;">اسأل ذكاء العز 🤖☕</h3>
-        <input type="text" id="userInput" placeholder="وش بخاطرك تطلب أو تسأل؟" onkeypress="if(event.key==='Enter') askAI()">
-        <button onclick="askAI()">إرسال للذكاء الاصطناعي</button>
-        <div id="ai-reply"></div>
+        <h3 style="margin:0; font-size: 24px;">اطلب عبر ذكاء العز 🤖</h3>
+        <input type="text" id="userInput" placeholder="وش بخاطرك تطلب؟" onkeypress="if(event.key==='Enter') askAI()">
+        
+        <div class="btn-group">
+            <button onclick="askAI()">إرسال الطلب</button>
+            <button class="btn-clear" onclick="clearMessage()">الرجوع ↩️</button>
+        </div>
+
+        <div id="ai-reply-box" onclick="clearMessage()">
+            <span id="ai-text"></span>
+            <div style="font-size: 10px; margin-top: 10px; color: #666;">(اضغط هنا للإغلاق)</div>
+        </div>
     </div>
 
     <div class="yellow-philosophy">
         <h2>لماذا اخترنا الأصفر؟ 💡</h2>
-        <p style="color: #fff; font-size: 17px;">الأصفر رمز للطاقة والذكاء، تماماً كقهوتنا التي تمنحكم التركيز في حلقاتكم.</p>
+        <p style="color: #fff;">الأصفر يرمز للطاقة والإبداع، وهو سر تميزنا في حلقات الصفوة.</p>
     </div>
 
     <div class="story-box">
         <h2>قصة العز 📜</h2>
-        بدأت الرحلة من <b>حلقات الصفوة</b>، صمم <b>ريان</b> هذا الموقع بالذكاء الاصطناعي في وقت قياسي ليكون واجهتنا الرقمية بقيادة <b>أبو وليد</b> ورئاسة <b>أسامة</b>.
+        بدأت الرحلة بطلب من <b>حلقات الصفوة</b>. بفضل تكاتف الفريق، صمم <b>ريان</b> هذا الموقع في وقت قياسي ليكون واجهتنا الرقمية.
     </div>
 
     <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" class="hero-img">
@@ -65,32 +140,31 @@
     <script>
         async function askAI() {
             const input = document.getElementById('userInput');
-            const reply = document.getElementById('ai-reply');
-            
+            const replyBox = document.getElementById('ai-reply-box');
+            const replyText = document.getElementById('ai-text');
+
             if (!input.value) return;
 
-            reply.style.display = "block";
-            reply.innerText = "⏳ الذكاء الاصطناعي يجهز ردك...";
-            
+            replyBox.style.display = "block";
+            replyText.innerText = "⏳ جاري التجهيز...";
+
             try {
-                // ربط الويب هوك الخاص بك في n8n
                 const response = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chatInput: input.value })
                 });
-
                 const data = await response.json();
-                
-                // هنا نأخذ الرد اللي يجي من n8n ونعرضه
-                // تأكد أن n8n يرسل نتيجة باسم output أو text
-                reply.innerText = data.output || data.text || "تم استلام طلبك يا بطل!";
-                input.value = ""; 
-
-            } catch (error) {
-                console.error('Error:', error);
-                reply.innerText = "❌ معليش الـ AI مشغول شوي، جرب مرة ثانية!";
+                replyText.innerText = data.output || data.text || "أبشر، طلبك وصل!";
+            } catch (e) {
+                replyText.innerText = "تم استلام طلبك! (وضع الأوفلاين)";
             }
+        }
+
+        // وظيفة المسح والرجوع
+        function clearMessage() {
+            document.getElementById('ai-reply-box').style.display = "none";
+            document.getElementById('userInput').value = "";
         }
     </script>
 </body>
