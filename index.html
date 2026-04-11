@@ -8,7 +8,7 @@
     <style>
         :root { --gold: #FFD700; --black: #000000; }
         body { font-family: 'Tajawal', sans-serif; background-color: var(--black); color: var(--gold); display: flex; flex-direction: column; align-items: center; margin: 0; padding: 15px; min-height: 100vh; }
-        h1 { font-size: 45px; margin-top: 20px; text-shadow: 0 0 10px rgba(255,215,0,0.3); }
+        h1 { font-size: 45px; margin-top: 20px; text-shadow: 0 0 10px rgba(255,215,0,0.3); text-align: center; }
         .hero-img { width: 100%; max-width: 450px; border-radius: 20px; border: 2px solid var(--gold); cursor: pointer; object-fit: cover; height: 250px; margin-bottom: 15px; }
         .team-box { width: 100%; max-width: 450px; margin-top: 10px; background: #111; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #222; box-sizing: border-box; }
         .on-duty { margin-top: 10px; font-size: 14px; color: #fff; background: rgba(255, 215, 0, 0.2); padding: 5px 10px; border-radius: 20px; display: inline-block; border: 1px solid var(--gold); }
@@ -21,19 +21,19 @@
         .story-box { width: 100%; max-width: 450px; margin-top: 30px; padding: 20px; background: #0a0a0a; border-radius: 15px; border: 1px solid #333; line-height: 1.7; text-align: justify; box-sizing: border-box; }
         .story-box h2 { color: var(--gold); font-size: 20px; margin-top: 0; text-align: center; }
         #cup-message-box { display: none; margin-top: 15px; padding: 10px; background: #fff; color: #000; border-radius: 10px; font-size: 14px; border-left: 5px solid #000; text-align: center; }
-        .footer { margin: 30px 0; font-size: 10px; opacity: 0.4; }
+        .footer { margin: 30px 0; font-size: 10px; opacity: 0.4; text-align: center; width: 100%; }
     </style>
 </head>
 <body>
 
     <h1>كـافـيـه الـعـز</h1>
 
-    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" class="hero-img" onclick="document.getElementById('userInput').focus()">
+    <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000&auto=format&fit=crop" class="hero-img" onclick="document.getElementById('userInput').focus()" alt="كافيه العز - الفخامة المظلمة">
 
     <div class="team-box">
         <div style="font-weight: bold; font-size: 18px;">القائد: أبو وليد 👑 | الرئيس: أسامة ✨</div>
         <div style="font-size: 15px; color: #888;">ريان • حيان • باسل</div>
-        <div class="on-duty">🟢 متواجد الآن: <span id="current-hero">أبو وليد وريان</span></div>
+        <div class="on-duty">🟢 متواجد الآن: <span id="current-hero">أسامة، ريان، حيان، باسل</span></div>
     </div>
 
     <div class="menu-list">
@@ -55,12 +55,12 @@
         <p style="color: #fff; font-size: 15px; margin: 0;">الأصفر رمز للطاقة والذكاء، تماماً كقهوتنا التي تمنحكم التركيز في حلقاتكم.</p>
     </div>
 
-    <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000&auto=format&fit=crop" class="hero-img" style="margin-top: 30px;">
-
     <div class="story-box">
         <h2>قصة العز 📜</h2>
         بدأت الرحلة من <b>حلقات الصفوة</b>، صمم <b>ريان</b> هذا الموقع في وقت قياسي (من الجمعة للسبت) ليكون واجهتنا الرقمية بقيادة <b>أبو وليد</b> ورئاسة <b>أسامة</b> وبقية الأبطال.
     </div>
+
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" class="hero-img" style="margin-top: 30px;" alt="كافيه العز - الانتعاش واللون الأصفر">
 
     <div class="footer">كافيه العز © 2026</div>
 
@@ -73,9 +73,6 @@
         "باسل يذكرك: القوي هو من يصبر على طلب العلم.",
         "فريق العز يقول لك: قهوتنا تزيدك ذكاءً.. جربها!"
     ];
-
-    const shifts = ["أبو وليد وريان", "أسامة وحيان", "باسل وريان", "أبو وليد وباسل", "أسامة وريان"];
-    document.getElementById('current-hero').innerText = shifts[Math.floor(Math.random() * shifts.length)];
 
     async function askAI() {
         const input = document.getElementById('userInput');
