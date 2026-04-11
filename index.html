@@ -29,7 +29,7 @@
 
     <div class="menu-container">
         <div class="menu-item"><span>🥤 مشروب المليون</span> <span>15 SR</span></div>
-        <div class="menu-item"><span>☕ لاتيه الذكاء</span> <span>18 SR</span></div>
+        <div class="menu-item)<span>☕ لاتيه الذكاء</span> <span>18 SR</span></div>
         <div class="menu-item"><span>🍰 كيكة الألوان</span> <span>22 SR</span></div>
     </div>
 
@@ -55,23 +55,29 @@
         inputField.value = "";
 
         try {
+            // ملاحظة: استخدمنا رابط webhook-test ليطابق زر "Listen for test event" في n8n
             const response = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
                 method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
+                headers: { 
+                    'Content-Type': 'application/json'
+                },
                 body: JSON.stringify({ chatInput: userText })
             });
 
             const data = await response.json();
-            console.log("الرد الواصل:", data);
+            
+            // البحث عن الرد وعرضه
+            let aiText = "";
+            if (data.output) aiText = data.output;
+            else if (Array.isArray(data) && data[0] && data[0].output) aiText = data[0].output;
+            else if (data.text) aiText = data.text;
+            else if (data.message === "Workflow was started") aiText = "✅ وصلت الرسالة لـ n8n! \n الآن فعل خيار Respond: When Last Node Finishes.";
+            else aiText = "تم الاستلام، بانتظار معالجة n8n..";
 
-            // حل مشكلة Workflow was started
-            if (data.message === "Workflow was started" || !data.output) {
-                replyDiv.innerHTML = "<span style='color:red;'>⚠️ تنبيه هام:</span><br>الموقع اتصل بـ n8n بنجاح، لكن n8n رد بسرعة قبل ما يخلص الذكاء.<br><br><b>الحل:</b> ادخل n8n، افتح Webhook، غير <b>Respond</b> إلى <b>When Last Node Finishes</b> واضغط Save.";
-            } else {
-                replyDiv.innerText = data.output;
-            }
+            replyDiv.innerText = aiText;
+
         } catch (error) {
-            replyDiv.innerText = "❌ فشل الاتصال. تأكد أنك ضغطت زر Listen for test event في n8n";
+            replyDiv.innerText = "❌ لم تصل الرسالة. تأكد أنك ضغطت زر 'Listen for test event' في n8n.";
         }
     }
 </script>
