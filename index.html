@@ -7,17 +7,102 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #FFD700; --black: #000000; }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--black); color: var(--gold); display: flex; flex-direction: column; align-items: center; margin: 0; padding: 15px; }
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--black); color: var(--gold); display: flex; flex-direction: column; align-items: center; margin: 0; padding: 15px; min-height: 100vh; }
         h1 { font-size: 45px; margin-top: 20px; text-shadow: 0 0 10px rgba(255,215,0,0.3); }
-        .hero-img { width: 100%; max-width: 450px; border-radius: 20px; border: 2px solid var(--gold); cursor: pointer; object-fit: cover; height: 250px; }
-        .team-box { width: 100%; max-width: 450px; margin-top: 20px; background: #111; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #222; }
+        .hero-img { width: 100%; max-width: 450px; border-radius: 20px; border: 2px solid var(--gold); cursor: pointer; object-fit: cover; height: 250px; margin-bottom: 15px; }
+        .team-box { width: 100%; max-width: 450px; margin-top: 10px; background: #111; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #222; box-sizing: border-box; }
         .on-duty { margin-top: 10px; font-size: 14px; color: #fff; background: rgba(255, 215, 0, 0.2); padding: 5px 10px; border-radius: 20px; display: inline-block; border: 1px solid var(--gold); }
         .menu-list { width: 100%; max-width: 450px; margin-top: 20px; }
         .menu-item { background: #0a0a0a; padding: 15px; margin: 8px 0; border-radius: 10px; display: flex; justify-content: space-between; border-right: 4px solid var(--gold); font-weight: bold; }
         .order-container { background: var(--gold); color: #000; width: 100%; max-width: 450px; padding: 25px; border-radius: 25px; margin-top: 25px; text-align: center; box-sizing: border-box; }
         input { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #000; margin-top: 15px; box-sizing: border-box; font-family: 'Tajawal'; font-weight: bold; text-align: center; }
-        button { background: #000; color: var(--gold); width: 100%; padding: 12px; border-radius: 10px; border: none; margin-top: 15px; font-weight: bold; cursor: pointer; }
-        .yellow-philosophy { width: 100%; max-width: 450px; margin-top: 30px; padding: 20px; background: rgba(255, 215, 0, 0.05); border-radius: 15px; border: 1px dashed var(--gold); text-align: center; }
-        .story-box { width: 100%; max-width: 450px; margin-top: 30px; padding: 20px; background: #0a0a0a; border-radius: 15px; border: 1px solid #333; line-height: 1.7; text-align: justify; }
+        button { background: #000; color: var(--gold); width: 100%; padding: 12px; border-radius: 10px; border: none; margin-top: 15px; font-weight: bold; cursor: pointer; width: 100%; }
+        .yellow-philosophy { width: 100%; max-width: 450px; margin-top: 30px; padding: 20px; background: rgba(255, 215, 0, 0.05); border-radius: 15px; border: 1px dashed var(--gold); text-align: center; box-sizing: border-box; }
+        .story-box { width: 100%; max-width: 450px; margin-top: 30px; padding: 20px; background: #0a0a0a; border-radius: 15px; border: 1px solid #333; line-height: 1.7; text-align: justify; box-sizing: border-box; }
         .story-box h2 { color: var(--gold); font-size: 20px; margin-top: 0; text-align: center; }
-        .footer { margin-top: 30px; font-size: 1
+        #cup-message-box { display: none; margin-top: 15px; padding: 10px; background: #fff; color: #000; border-radius: 10px; font-size: 14px; border-left: 5px solid #000; text-align: center; }
+        .footer { margin: 30px 0; font-size: 10px; opacity: 0.4; }
+    </style>
+</head>
+<body>
+
+    <h1>كـافـيـه الـعـز</h1>
+
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" class="hero-img" onclick="document.getElementById('userInput').focus()">
+
+    <div class="team-box">
+        <div style="font-weight: bold; font-size: 18px;">القائد: أبو وليد 👑 | الرئيس: أسامة ✨</div>
+        <div style="font-size: 15px; color: #888;">ريان • حيان • باسل</div>
+        <div class="on-duty">🟢 متواجد الآن: <span id="current-hero">أبو وليد وريان</span></div>
+    </div>
+
+    <div class="menu-list">
+        <div class="menu-item"><span>🥤 مشروب المليون</span> <span>15 SR</span></div>
+        <div class="menu-item"><span>☕ لاتيه الذكاء</span> <span>18 SR</span></div>
+        <div class="menu-item"><span>🍰 كيكة الألوان</span> <span>22 SR</span></div>
+    </div>
+
+    <div class="order-container">
+        <h3 style="margin:0">اطلب من العز ☕✨</h3>
+        <input type="text" id="userInput" placeholder="وش طلبك؟" onkeypress="if(event.key==='Enter') askAI()">
+        <button onclick="askAI()">إرسال الطلب</button>
+        <div id="ai-reply" style="margin-top:10px; font-weight:bold;">أبشر بسعدك!</div>
+        <div id="cup-message-box"><b>رسالة في كوب:</b> <br><span id="cup-text"></span></div>
+    </div>
+
+    <div class="yellow-philosophy">
+        <h2>لماذا اخترنا الأصفر؟ 💡</h2>
+        <p style="color: #fff; font-size: 15px; margin: 0;">الأصفر رمز للطاقة والذكاء، تماماً كقهوتنا التي تمنحكم التركيز في حلقاتكم.</p>
+    </div>
+
+    <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000&auto=format&fit=crop" class="hero-img" style="margin-top: 30px;">
+
+    <div class="story-box">
+        <h2>قصة العز 📜</h2>
+        بدأت الرحلة من <b>حلقات الصفوة</b>، صمم <b>ريان</b> هذا الموقع في وقت قياسي (من الجمعة للسبت) ليكون واجهتنا الرقمية بقيادة <b>أبو وليد</b> ورئاسة <b>أسامة</b> وبقية الأبطال.
+    </div>
+
+    <div class="footer">كافيه العز © 2026</div>
+
+<script>
+    const messages = [
+        "أبو وليد يقول لك: فالك الفوز بالمركز الأول!",
+        "أسامة يحفزك: القهوة عليك والدراسة علينا.. شد حيلك!",
+        "ريان يهديك: أتمنى لك يوماً مليئاً بالتركيز.",
+        "حيان يقول لك: لا تنسى وردك اليوم.. وبالتوفيق!",
+        "باسل يذكرك: القوي هو من يصبر على طلب العلم.",
+        "فريق العز يقول لك: قهوتنا تزيدك ذكاءً.. جربها!"
+    ];
+
+    const shifts = ["أبو وليد وريان", "أسامة وحيان", "باسل وريان", "أبو وليد وباسل", "أسامة وريان"];
+    document.getElementById('current-hero').innerText = shifts[Math.floor(Math.random() * shifts.length)];
+
+    async function askAI() {
+        const input = document.getElementById('userInput');
+        const reply = document.getElementById('ai-reply');
+        const msgBox = document.getElementById('cup-message-box');
+        const msgText = document.getElementById('cup-text');
+
+        if (!input.value) return;
+        reply.innerText = "⏳ جاري التجهيز...";
+        
+        try {
+            const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ chatInput: input.value })
+            });
+            const data = await res.json();
+            reply.innerText = data.output || "تم استلام طلبك!";
+            
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            msgText.innerText = randomMsg;
+            msgBox.style.display = "block";
+            input.value = "";
+        } catch (e) { 
+            reply.innerText = "تم استلام طلبك! (أوفلاين)"; 
+        }
+    }
+</script>
+</body>
+</html>
