@@ -3,301 +3,138 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز | تجربة الذكاء</title>
-    
-    <link rel="icon" type="image/png" href="logo.png">
-    
+    <title>كافيه العز</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root {
-            --primary-gold: #FFD700;
-            --dark-bg: #000000;
-            --card-bg: #111111;
-        }
-
+        :root { --gold: #FFD700; --black: #000000; }
+        
         body { 
             font-family: 'Tajawal', sans-serif; 
-            background-color: var(--dark-bg); /* الرغبة: الموقع أسود */
-            color: var(--primary-gold); /* الرغبة: الكلام أصفر */
+            background-color: var(--black); 
+            color: var(--gold); 
             display: flex; 
             flex-direction: column; 
             align-items: center; 
-            padding: 0; 
             margin: 0; 
-            min-height: 100vh; 
+            padding: 20px; 
         }
 
-        /* الرغبة الأولى: فقط مكتوب كافيه العز يرحب بكم (فوق الصورة) */
-        .simple-header {
-            width: 100%;
-            text-align: center;
-            padding: 30px 0;
-            margin-top: 50px; /* نزلناه عشان ما يلصق في صورة القهوة */
-            background: transparent; /* خلفية شفافة */
-        }
-        
-        .simple-header h2 {
-            color: var(--primary-gold);
-            font-size: 36px; /* الرغبة الثالثة: الكلام كان صغير، كبرناه */
+        /* نص الترحيب الكبير */
+        .welcome-text {
+            font-size: 42px; 
             font-weight: 700;
-            margin: 0;
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.4);
+            margin-top: 20px;
+            margin-bottom: 10px;
+            text-align: center;
         }
 
-        /* 1. قسم الواجهة الترحيبية (صورة اللوحة الكبيرة) */
-        .welcome-section {
+        /* الصورة (البن والقهوة) */
+        .hero-img {
             width: 100%;
-            height: 100vh; /* تأخذ كامل طول الشاشة */
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: #000; /* خلفية سوداء */
-        }
-        
-        .welcome-hero {
-            width: 95%;
             max-width: 450px;
-            box-shadow: 0 15px 40px rgba(255, 215, 0, 0.15);
-            border-radius: 30px;
-            overflow: hidden;
-            border: 2px solid var(--primary-gold); /* إطار أصفر فخم */
-        }
-        
-        /* هنا نربط صورة الترحيب الكبيرة ( welcome_hero.png ) */
-        .welcome-hero img {
-            width: 100%;
-            height: auto;
-            display: block;
+            height: 250px;
+            border-radius: 20px;
+            border: 2px solid var(--gold);
+            object-fit: cover;
+            margin-bottom: 20px;
         }
 
-        /* 2. قسم صورة البن والقهوة الصفراء (Hero Section) */
-        .coffee-famed {
-            width: 100%;
-            height: 70vh; /* تأخذ 70% من طول الشاشة */
-            /* هنا نربط صورة البن والقهوة الصفراء ( coffee_beans_famed.png ) */
-            background-image: url('coffee_beans_famed.png');
-            background-size: cover;
-            background-position: center;
-            background-repeat: no-repeat;
-            position: relative;
-        }
-        
-        /* تظليل أسود خفيف فوق الصورة عشان يبان النص */
-        .coffee-famed::before {
-            content: '';
-            position: absolute;
-            top: 0; left: 0; width: 100%; height: 100%;
-            background: rgba(0,0,0,0.5); /* أثقلنا التظليل */
-        }
-        
-        .coffee-famed-text {
-            position: relative;
-            z-index: 1;
-            color: var(--primary-gold);
-            font-size: 32px;
-            font-weight: 700;
-            text-shadow: 0 0 15px rgba(0,0,0,0.6);
-            margin-top: 15vh; /* نزلنا النص تحت شوي عشان يكون سنتر */
-            text-align: center;
-        }
-
-        /* العنوان الرئيسي للمنيو */
-        h1 { 
-            color: var(--primary-gold); 
-            border-bottom: 2px solid var(--primary-gold); 
-            padding-bottom: 15px; 
-            margin-bottom: 20px; 
-            margin-top: 60px; /* نزلناه عشان ما يلصق في صورة القهوة */
-            font-size: 38px; 
-            font-weight: 700; 
-            text-shadow: 0 0 10px rgba(255, 215, 0, 0.3);
-            text-align: center;
-        }
-
-        /* 3. قسم المنيو (المنتجات) */
-        .menu-container { 
-            width: 100%; 
-            max-width: 450px; 
-            margin-bottom: 40px; 
-            padding: 0 20px; /* حماية للجوانب في الجوال */
-        }
-        
+        /* المنيو */
+        .menu-container { width: 100%; max-width: 400px; }
         .menu-item { 
-            background: var(--card-bg); /* الرغبة الرابعة: خلفية المنتجات أسود داكن */
-            padding: 22px; 
-            margin: 18px 0; 
+            background: #111; 
+            padding: 15px; 
+            margin: 10px 0; 
             display: flex; 
             justify-content: space-between; 
-            align-items: center;
-            border: 1px solid var(--primary-gold); 
-            border-radius: 18px; 
-            font-weight: bold; 
-            font-size: 21px; 
-            transition: transform 0.3s ease;
-            box-shadow: 0 5px 15px rgba(255, 215, 0, 0.1);
-        }
-        
-        .menu-item:hover {
-            transform: scale(1.02);
+            border: 1px solid var(--gold); 
+            border-radius: 12px; 
+            font-size: 18px; 
+            font-weight: bold;
         }
 
-        .price {
-            color: #fff;
-            background: rgba(255, 215, 0, 0.15);
-            padding: 6px 14px;
-            border-radius: 10px;
-            font-size: 17px;
-        }
-
-        /* 4. قسم الطلب (صندوق المحادثة الذهبي) */
+        /* صندوق الطلب */
         .chat-box { 
-            background: var(--primary-gold); /* الرغبة الرابعة: خلفية صندوق المحادثة أصفر */
-            color: #000; /* الكلام في صندوق المحادثة أسود */
-            width: 95%; 
-            max-width: 450px; 
-            padding: 35px; 
-            border-radius: 35px; 
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            text-align: center; 
-            box-shadow: 0 20px 50px rgba(255, 215, 0, 0.25);
+            background: var(--gold); 
+            color: #000; 
+            width: 100%; 
+            max-width: 400px; 
+            padding: 25px; 
+            border-radius: 25px; 
+            margin-top: 20px;
+            text-align: center;
             box-sizing: border-box;
-            margin-bottom: 60px; /* مسافة قبل الـ Footer */
-            border: 2px solid #000; /* إطار أسود فخم */
-        }
-
-        .chat-box h3 {
-            margin-top: 0;
-            font-size: 26px;
-            margin-bottom: 25px;
-            color: #000;
         }
 
         input { 
             width: 100%; 
-            padding: 16px; 
+            padding: 12px; 
             border: 2px solid #000; 
-            border-radius: 15px; 
+            border-radius: 10px; 
             margin-top: 10px; 
-            text-align: center; 
-            font-size: 18px; 
-            font-weight: bold; 
-            font-family: 'Tajawal', sans-serif;
-            outline: none;
             box-sizing: border-box;
-            background: #fff; /* خلفية الإدخال بيضاء لتبدو كإدخال */
+            font-family: 'Tajawal';
+            font-weight: bold;
+            text-align: center;
         }
 
         button { 
-            background: #000000; /* الرغبة الرابعة: الأزرار أسود */
-            color: var(--primary-gold); /* الكلام أصفر */
-            border: 2px solid var(--primary-gold); /* إطار أصفر فخم */
-            padding: 16px; 
-            border-radius: 15px; 
-            margin-top: 20px; 
-            cursor: pointer; 
-            font-weight: 700; 
+            background: #000; 
+            color: var(--gold); 
+            border: none; 
+            padding: 12px; 
+            border-radius: 10px; 
+            margin-top: 15px; 
             width: 100%; 
-            font-size: 21px; 
-            transition: all 0.3s ease;
+            font-weight: bold; 
+            font-size: 18px;
+            cursor: pointer;
         }
 
-        button:hover {
-            background: #222;
-        }
-
-        #ai-reply { 
-            margin-top: 25px; 
-            font-size: 19px; 
-            font-weight: 700; 
-            line-height: 1.8; 
-            width: 100%;
-            text-align: center;
-            white-space: pre-wrap;
-            color: #000;
-        }
-
-        .footer { 
-            margin-top: auto; 
-            padding: 30px; 
-            font-size: 14px; 
-            opacity: 0.6; 
-            color: #fff;
-            width: 100%;
-            text-align: center;
-        }
+        #ai-reply { margin-top: 15px; font-weight: bold; line-height: 1.6; }
     </style>
 </head>
 <body>
 
-    <div class="simple-header">
-        <h2>كـافـيـه الـعـز يـرحب بـكم</h2>
-    </div>
+    <div class="welcome-text">كافيه العز يرحب بكم</div>
 
-    <div class="welcome-section">
-        <div class="welcome-hero">
-            <img src="welcome_hero.png" alt="كارت العز الترحيبي الكبيرة">
-        </div>
-    </div>
-
-    <div class="coffee-famed">
-        <div class="coffee-famed-text">نعدلك الكيف.. بالذهب</div>
-    </div>
-
-    <h1>قـائـمـة الـعـز الـذهـبيـة</h1>
+    <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?q=80&w=1000&auto=format&fit=crop" class="hero-img" alt="قهوة العز">
 
     <div class="menu-container">
-        <div class="menu-item">
-            <span>🥤 مشروب المليون</span> 
-            <span class="price">15 SR</span>
-        </div>
-        <div class="menu-item">
-            <span>☕ لاتيه الذكاء</span> 
-            <span class="price">18 SR</span>
-        </div>
-        <div class="menu-item">
-            <span>🍰 كيكة الألوان</span> 
-            <span class="price">22 SR</span>
-        </div>
+        <div class="menu-item"><span>🥤 مشروب المليون</span> <span>15 SR</span></div>
+        <div class="menu-item"><span>☕ لاتيه الذكاء</span> <span>18 SR</span></div>
+        <div class="menu-item"><span>🍰 كيكة الألوان</span> <span>22 SR</span></div>
     </div>
 
     <div class="chat-box">
-        <h3>اسأل ذكاء العز 🤖✨</h3>
-        <input type="text" id="userInput" placeholder="اطلب اللي بخاطرك هنا..." onkeypress="handleKeyPress(event)">
-        <button onclick="askAI()">إرسال الطلب ☕🔥</button>
-        <div id="ai-reply">يا هلا بضيف العز.. وش ودك نقهويك اليوم؟ 🤩</div>
+        <h3 style="margin:0">اسأل ذكاء العز 🤖</h3>
+        <input type="text" id="userInput" placeholder="وش بخاطرك تطلب؟" onkeypress="if(event.key==='Enter') askAI()">
+        <button onclick="askAI()">إرسال الطلب ✨</button>
+        <div id="ai-reply">يا هلا بك.. آمر وتدلل 🤩</div>
     </div>
 
-    <div class="footer">جميع الحقوق محفوظة لأسرة العز © 2026</div>
+    <p style="margin-top:30px; font-size:12px; opacity:0.5">حقوق كافيه العز © 2026</p>
 
 <script>
-    function handleKeyPress(event) { if (event.key === "Enter") { askAI(); } }
-
     async function askAI() {
-        const inputField = document.getElementById('userInput');
-        const replyDiv = document.getElementById('ai-reply');
-        const userText = inputField.value;
-        if (!userText) return;
+        const input = document.getElementById('userInput');
+        const reply = document.getElementById('ai-reply');
+        if (!input.value) return;
 
-        replyDiv.innerText = "⏳ يجهز الرد الفخم... ✨";
-        inputField.value = "";
+        reply.innerText = "⏳ يجهز الرد...";
+        const text = input.value;
+        input.value = "";
 
         try {
-            // تأكد من رابط الـ Webhook حقك في n8n (في سطر 212)
-            const response = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
+            const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chatInput: userText })
+                body: JSON.stringify({ chatInput: text })
             });
-
-            const data = await response.json();
-            let output = data.output || data.text || (Array.isArray(data) && data[0].output) || "آمرنا؟ جرب تسأل مرة ثانية ☕";
-            
-            replyDiv.innerText = output;
-
-        } catch (error) {
-            replyDiv.innerText = "❌ فشل الاتصال. تأكد أن n8n فعال والمفتاح أخضر";
+            const data = await res.json();
+            reply.innerText = data.output || data.text || "آمرنا؟ جرب مرة ثانية";
+        } catch (e) {
+            reply.innerText = "❌ فشل الاتصال بالباريستا";
         }
     }
 </script>
