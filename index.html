@@ -3,85 +3,86 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز | الحل النهائي</title>
+    <title>كافيه العز</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #FFD700; --black: #000000; }
         body { font-family: 'Tajawal', sans-serif; background-color: var(--black); color: var(--gold); display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; min-height: 100vh; }
-        h1 { font-size: 50px; margin: 20px 0; text-shadow: 0 0 15px rgba(255,215,0,0.5); }
-        .hero-img { width: 100%; max-width: 600px; border-radius: 25px; border: 2px solid var(--gold); object-fit: cover; height: 300px; margin-bottom: 25px; }
-        .order-container { background: var(--gold); color: #000; width: 100%; max-width: 600px; padding: 30px; border-radius: 30px; margin-top: 30px; text-align: center; box-sizing: border-box; position: relative; }
-        input { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #000; margin-top: 15px; font-family: 'Tajawal'; font-weight: bold; text-align: center; font-size: 16px; box-sizing: border-box; }
-        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
-        button { flex: 2; background: #000; color: var(--gold); padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 18px; }
-        .btn-clear { flex: 1; background: #333; color: #fff; font-size: 14px; }
         
-        /* صندوق الرد - خليته أوضح */
+        .hero-img { width: 100%; max-width: 500px; border-radius: 20px; border: 2px solid var(--gold); height: 250px; object-fit: cover; margin-bottom: 20px; }
+        
+        .order-container { background: var(--gold); color: #000; width: 100%; max-width: 500px; padding: 25px; border-radius: 25px; text-align: center; box-sizing: border-box; }
+        
+        input { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #000; margin-top: 15px; font-family: 'Tajawal'; font-weight: bold; text-align: center; box-sizing: border-box; }
+        
+        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
+        .btn-send { flex: 2; background: #000; color: var(--gold); padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; }
+        .btn-back { flex: 1; background: #444; color: #fff; padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; }
+
+        /* صندوق الرد */
         #ai-reply-box { 
-            display: none; margin-top: 20px; padding: 20px; 
-            background: #fff; color: #000; border-radius: 20px; 
-            font-weight: bold; border: 4px solid #000;
+            display: none; /* مخفي في البداية */
+            margin-top: 20px; padding: 20px; background: #fff; color: #000; 
+            border-radius: 15px; border: 3px solid #000; font-weight: bold; 
         }
     </style>
 </head>
 <body>
 
-    <h1>كـافـيـه الـعـز</h1>
+    <h1 style="font-size: 40px; text-shadow: 0 0 10px rgba(255,215,0,0.5);">كـافـيـه الـعـز</h1>
 
     <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000&auto=format&fit=crop" class="hero-img">
 
     <div class="order-container">
-        <h3 style="margin:0; font-size: 24px;">اطلب عبر ذكاء العز 🤖</h3>
-        
+        <h3 style="margin:0">اطلب عبر ذكاء العز 🤖</h3>
         <input type="text" id="userInput" placeholder="اكتب طلبك هنا...">
         
         <div class="btn-group">
-            <button onclick="askAI()">إرسال الطلب</button>
-            <button type="button" class="btn-clear" onclick="forceReset()">الرجوع ↩️</button>
+            <button class="btn-send" onclick="askAI()">إرسال الطلب</button>
+            <button class="btn-back" onclick="goBack()">الرجوع ↩️</button>
         </div>
 
-        <div id="ai-reply-box" onclick="forceReset()">
+        <div id="ai-reply-box">
             <div id="ai-text"></div>
-            <div style="font-size: 10px; margin-top: 10px; color: #777;">(اضغط هنا للرجوع والمسح)</div>
+            <button onclick="goBack()" style="margin-top:15px; background:none; border:none; text-decoration:underline; cursor:pointer; font-size:12px;">إغلاق الرسالة</button>
         </div>
     </div>
 
-    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" class="hero-img" style="margin-top:30px;">
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" class="hero-img" style="margin-top:25px;">
 
     <script>
+        // وظيفة الإرسال
         async function askAI() {
             const input = document.getElementById('userInput');
             const box = document.getElementById('ai-reply-box');
-            const txt = document.getElementById('ai-text');
+            const text = document.getElementById('ai-text');
 
             if (!input.value.trim()) return;
 
-            // إظهار الصندوق فوراً
             box.style.display = "block";
-            txt.innerText = "⏳ جاري التجهيز...";
+            text.innerText = "⏳ جاري التجهيز...";
 
             try {
-                const response = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
+                const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ chatInput: input.value })
                 });
-                const data = await response.json();
-                txt.innerText = data.output || data.text || "تم استلام طلبك!";
+                const data = await res.json();
+                text.innerText = data.output || data.text || "أبشر طلبك وصل!";
             } catch (e) {
-                txt.innerText = "أبشر، طلبك وصل!";
+                text.innerText = "تم استلام طلبك يا بطل!";
             }
         }
 
-        // وظيفة الإجبار على المسح والرجوع
-        function forceReset() {
-            // إخفاء الصندوق
+        // وظيفة الرجوع (المسح الفوري)
+        function goBack() {
+            // 1. إخفاء صندوق الرد
             document.getElementById('ai-reply-box').style.display = "none";
-            // مسح النص في خانة الكتابة
+            // 2. مسح الكلام اللي في الخانة
             document.getElementById('userInput').value = "";
-            // مسح نص الرد تماماً
+            // 3. تصفير نص الرد
             document.getElementById('ai-text').innerText = "";
-            console.log("تمت عملية الرجوع بنجاح");
         }
     </script>
 </body>
