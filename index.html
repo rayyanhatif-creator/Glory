@@ -7,81 +7,37 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
         :root { --gold: #FFD700; --black: #000000; }
-        
-        body { 
-            font-family: 'Tajawal', sans-serif; 
-            background-color: var(--black); 
-            color: var(--gold); 
-            display: flex; flex-direction: column; align-items: center; 
-            margin: 0; padding: 15px;
-        }
-
-        h1 { font-size: 45px; margin-top: 20px; margin-bottom: 10px; text-shadow: 0 0 10px rgba(255,215,0,0.3); }
-
-        .hero-img {
-            width: 100%; max-width: 450px; height: 250px;
-            border-radius: 20px; border: 2px solid var(--gold);
-            object-fit: cover; cursor: pointer;
-        }
-
-        .team-box {
-            width: 100%; max-width: 450px; margin-top: 20px;
-            background: #111; padding: 15px; border-radius: 15px;
-            text-align: center; border: 1px solid #222;
-        }
-        .leaders { font-weight: bold; font-size: 18px; margin-bottom: 8px; }
-        .members { font-size: 15px; color: #888; }
-
+        body { font-family: 'Tajawal', sans-serif; background-color: var(--black); color: var(--gold); display: flex; flex-direction: column; align-items: center; margin: 0; padding: 15px; }
+        h1 { font-size: 45px; margin-top: 20px; text-shadow: 0 0 10px rgba(255,215,0,0.3); }
+        .hero-img { width: 100%; max-width: 450px; border-radius: 20px; border: 2px solid var(--gold); cursor: pointer; }
+        .team-box { width: 100%; max-width: 450px; margin-top: 20px; background: #111; padding: 15px; border-radius: 15px; text-align: center; border: 1px solid #222; }
         .menu-list { width: 100%; max-width: 450px; margin-top: 20px; }
-        .menu-item { 
-            background: #0a0a0a; padding: 15px; margin: 8px 0; 
-            border-radius: 10px; display: flex; justify-content: space-between; 
-            border-right: 4px solid var(--gold); font-weight: bold;
-        }
-
-        .order-container {
-            background: var(--gold); color: #000; width: 100%;
-            max-width: 450px; padding: 25px; border-radius: 25px;
-            margin-top: 25px; text-align: center; box-sizing: border-box;
-        }
-        input {
-            width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #000;
-            margin-top: 15px; box-sizing: border-box; font-family: 'Tajawal';
-            font-weight: bold; text-align: center;
-        }
-        button {
-            background: #000; color: var(--gold); width: 100%; padding: 12px;
-            border-radius: 10px; border: none; margin-top: 15px; font-weight: bold; cursor: pointer;
-        }
-
-        /* قسم كيمياء اللون الأصفر */
-        .yellow-philosophy {
-            width: 100%; max-width: 450px; margin-top: 30px;
-            padding: 20px; background: rgba(255, 215, 0, 0.05); border-radius: 15px;
-            border: 1px dashed var(--gold); text-align: center;
-        }
-        .yellow-philosophy h2 { font-size: 22px; margin-top: 0; color: #fff; }
-
-        .story-box {
-            width: 100%; max-width: 450px; margin-top: 30px;
-            padding: 20px; background: #0a0a0a; border-radius: 15px;
-            border: 1px solid #333; line-height: 1.7; text-align: justify;
-        }
+        .menu-item { background: #0a0a0a; padding: 15px; margin: 8px 0; border-radius: 10px; display: flex; justify-content: space-between; border-right: 4px solid var(--gold); font-weight: bold; }
+        .order-container { background: var(--gold); color: #000; width: 100%; max-width: 450px; padding: 25px; border-radius: 25px; margin-top: 25px; text-align: center; box-sizing: border-box; }
+        input { width: 100%; padding: 12px; border-radius: 10px; border: 2px solid #000; margin-top: 15px; box-sizing: border-box; font-family: 'Tajawal'; font-weight: bold; text-align: center; }
+        button { background: #000; color: var(--gold); width: 100%; padding: 12px; border-radius: 10px; border: none; margin-top: 15px; font-weight: bold; cursor: pointer; }
+        .yellow-philosophy { width: 100%; max-width: 450px; margin-top: 30px; padding: 20px; background: rgba(255, 215, 0, 0.05); border-radius: 15px; border: 1px dashed var(--gold); text-align: center; }
+        .story-box { width: 100%; max-width: 450px; margin-top: 30px; padding: 20px; background: #0a0a0a; border-radius: 15px; border: 1px solid #333; line-height: 1.7; text-align: justify; }
         .story-box h2 { color: var(--gold); font-size: 20px; margin-top: 0; text-align: center; }
-        
         .footer { margin-top: 30px; font-size: 10px; opacity: 0.4; }
+        
+        /* تصميم صندوق الرسالة المفاجئة */
+        #cup-message-box { 
+            display: none; margin-top: 15px; padding: 10px; 
+            background: #fff; color: #000; border-radius: 10px; 
+            font-size: 14px; border-left: 5px solid #000;
+        }
     </style>
 </head>
 <body>
 
     <h1>كـافـيـه الـعـز</h1>
 
-    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" 
-         class="hero-img" onclick="document.getElementById('userInput').focus()">
+    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" class="hero-img" onclick="document.getElementById('userInput').focus()">
 
     <div class="team-box">
-        <div class="leaders">القائد: أبو وليد 👑 | الرئيس: أسامة ✨</div>
-        <div class="members">ريان • حيان • باسل</div>
+        <div style="font-weight: bold; font-size: 18px;">القائد: أبو وليد 👑 | الرئيس: أسامة ✨</div>
+        <div style="font-size: 15px; color: #888;">ريان • حيان • باسل</div>
     </div>
 
     <div class="menu-list">
@@ -95,28 +51,45 @@
         <input type="text" id="userInput" placeholder="وش طلبك؟" onkeypress="if(event.key==='Enter') askAI()">
         <button onclick="askAI()">إرسال الطلب</button>
         <div id="ai-reply" style="margin-top:10px; font-weight:bold;">أبشر بسعدك!</div>
+        
+        <div id="cup-message-box">
+            <b>رسالة من بطل في العز:</b> <br>
+            <span id="cup-text"></span>
+        </div>
     </div>
 
     <div class="yellow-philosophy">
         <h2>لماذا اخترنا اللون الأصفر؟ 💡</h2>
-        <p style="color: #fff; font-size: 15px; margin: 0;">
-            في <b>كافيه العز</b>، نؤمن أن اللون الأصفر هو رمز للطاقة والذكاء والبهجة. تماماً كما تمنحكم قهوتنا التركيز في حلقاتكم، يمنحكم لوننا التفاؤل والإبداع.
-        </p>
+        <p style="color: #fff; font-size: 15px; margin: 0;">في كافيه العز، اللون الأصفر هو رمز للطاقة والذكاء والبهجة، تماماً كقهوتنا التي تمنحكم التركيز في حلقاتكم.</p>
     </div>
 
     <div class="story-box">
         <h2>قصة العز 📜</h2>
-        بدأت الرحلة من <b>حلقات الصفوة</b> اللي طلبت منا نسوي مقهى باللون الأصفر. اجتمعنا وخططنا واتفقنا على اللبس، ثم اقترح <b>ريان</b> نسوي موقع يدعمنا. اشتغلنا من يوم الجمعة وخلصناه ليل السبت، واليوم نقدم مشروعنا وبإذن الله الأول.
+        بدأت الرحلة من <b>حلقات الصفوة</b>، خططنا واتفقنا على الهوية، ثم صمم <b>ريان</b> هذا الموقع في وقت قياسي (من الجمعة للسبت) ليكون واجهتنا الرقمية.
     </div>
 
     <div class="footer">كافيه العز © 2026</div>
 
 <script>
+    // قائمة الرسائل العشوائية (رسالة في كوب)
+    const messages = [
+        "أبو وليد يقول لك: فالك الفوز بالمركز الأول في الحفظ!",
+        "أسامة يحفزك: القهوة عليك والدراسة علينا.. شد حيلك!",
+        "ريان يهديك: أتمنى لك يوماً مليئاً بالإنجاز والتركيز.",
+        "حيان يقول لك: لا تنسى وردك اليوم.. وبالتوفيق!",
+        "باسل يذكرك: القوي هو من يصبر على طلب العلم.. استمر!",
+        "فريق العز يقول لك: قهوتنا تزيدك ذكاءً.. جربها!"
+    ];
+
     async function askAI() {
         const input = document.getElementById('userInput');
         const reply = document.getElementById('ai-reply');
+        const msgBox = document.getElementById('cup-message-box');
+        const msgText = document.getElementById('cup-text');
+
         if (!input.value) return;
         reply.innerText = "⏳ جاري التجهيز...";
+        
         try {
             const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
                 method: 'POST',
@@ -125,8 +98,16 @@
             });
             const data = await res.json();
             reply.innerText = data.output || "تم استلام طلبك!";
+            
+            // إظهار رسالة عشوائية (رسالة في كوب)
+            const randomMsg = messages[Math.floor(Math.random() * messages.length)];
+            msgText.innerText = randomMsg;
+            msgBox.style.display = "block";
+            
             input.value = "";
-        } catch (e) { reply.innerText = "❌ الباريستا مشغول"; }
+        } catch (e) { 
+            reply.innerText = "❌ الباريستا مشغول"; 
+        }
     }
 </script>
 </body>
