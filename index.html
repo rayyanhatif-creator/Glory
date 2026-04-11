@@ -84,7 +84,7 @@
         reply.innerText = "⏳ جاري التجهيز...";
         
         try {
-            const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook-test/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
+            const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b66', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
                 body: JSON.stringify({ chatInput: input.value })
