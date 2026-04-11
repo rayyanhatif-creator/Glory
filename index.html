@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز</title>
+    <title>كافيه العز | أبطال الكيف</title>
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        :root { --gold: #FFD700; --black: #000000; }
+        :root { --gold: #FFD700; --black: #000000; --card: #0e0e0e; }
         
         body { 
             font-family: 'Tajawal', sans-serif; 
@@ -16,134 +16,179 @@
             flex-direction: column; 
             align-items: center; 
             margin: 0; 
-            padding: 10px; 
-            scroll-behavior: smooth; /* عشان النزلة للطلب تكون ناعمة */
+            padding: 10px;
         }
 
-        .welcome-text {
-            font-size: 36px; 
-            font-weight: 700;
-            margin-top: 15px;
-            margin-bottom: 15px;
-            text-align: center;
-        }
+        .header-section { text-align: center; margin: 30px 0; }
+        .header-section h1 { font-size: 48px; margin: 0; text-shadow: 0 0 15px rgba(255,215,0,0.4); }
 
-        /* جعل الصورة قابلة للضغط */
-        .hero-link { width: 100%; max-width: 450px; cursor: pointer; }
-        
+        /* الصورة الفخمة مدمجة مع رابط الطلب */
+        .hero-box {
+            width: 100%;
+            max-width: 480px;
+            cursor: pointer;
+            position: relative;
+        }
         .hero-img {
             width: 100%;
-            height: 220px;
-            border-radius: 15px;
+            height: 280px;
+            border-radius: 25px;
             border: 2px solid var(--gold);
             object-fit: cover;
-            transition: transform 0.2s;
+            box-shadow: 0 0 30px rgba(255,215,0,0.1);
         }
 
-        .hero-img:active { transform: scale(0.98); }
+        /* فريق العمل - ترتيب الهيبة */
+        .team-box {
+            width: 100%;
+            max-width: 480px;
+            margin-top: 25px;
+            background: var(--card);
+            border: 1px solid #222;
+            border-radius: 20px;
+            padding: 20px;
+            text-align: center;
+        }
+        .team-title { font-size: 20px; color: #fff; margin-bottom: 15px; border-bottom: 1px solid var(--gold); padding-bottom: 5px; }
+        .leaders { display: flex; justify-content: space-around; margin-bottom: 15px; }
+        .leader-item { font-weight: 700; color: var(--gold); font-size: 19px; }
+        .members { display: flex; justify-content: center; gap: 20px; font-size: 16px; color: #ccc; }
 
-        .menu-container { width: 100%; max-width: 400px; margin-top: 15px; }
-        
+        /* المنيو */
+        .menu-list { width: 100%; max-width: 480px; margin-top: 20px; }
         .menu-item { 
-            background: #111; 
-            padding: 12px 15px; 
-            margin: 8px 0; 
+            background: #080808; 
+            padding: 15px 20px; 
+            margin: 10px 0; 
+            border-radius: 12px; 
             display: flex; 
             justify-content: space-between; 
-            border: 1px solid var(--gold); 
-            border-radius: 10px; 
-            font-size: 17px; 
+            border-right: 4px solid var(--gold);
             font-weight: bold;
         }
 
-        /* صندوق الطلب الجديد */
-        .chat-box { 
-            background: var(--gold); 
-            color: #000; 
-            width: 100%; 
-            max-width: 400px; 
-            padding: 20px; 
-            border-radius: 20px; 
-            margin-top: 20px;
-            text-align: center;
+        /* صندوق اطلب من العز */
+        .order-container {
+            background: var(--gold);
+            color: #000;
+            width: 100%;
+            max-width: 480px;
+            padding: 30px;
+            border-radius: 30px;
+            margin-top: 30px;
             box-sizing: border-box;
-            box-shadow: 0 10px 20px rgba(255, 215, 0, 0.2);
+            text-align: center;
         }
-
-        input { 
-            width: 100%; 
-            padding: 12px; 
-            border: 2px solid #000; 
-            border-radius: 10px; 
-            margin-top: 10px; 
+        input {
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: 2px solid #000;
+            margin-top: 15px;
             box-sizing: border-box;
             font-family: 'Tajawal';
-            font-weight: bold;
+            font-weight: 700;
             text-align: center;
-            font-size: 16px;
         }
-
-        button { 
-            background: #000; 
-            color: var(--gold); 
-            border: none; 
-            padding: 12px; 
-            border-radius: 10px; 
-            margin-top: 15px; 
-            width: 100%; 
-            font-weight: bold; 
+        button {
+            background: #000;
+            color: var(--gold);
+            width: 100%;
+            padding: 15px;
+            border-radius: 12px;
+            border: none;
+            margin-top: 15px;
             font-size: 18px;
+            font-weight: 700;
             cursor: pointer;
         }
 
-        #ai-reply { margin-top: 15px; font-weight: bold; font-size: 17px; }
+        #ai-reply { margin-top: 20px; font-weight: 700; line-height: 1.6; }
+        
+        .music-btn {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: rgba(255, 215, 0, 0.2);
+            border: 1px solid var(--gold);
+            color: var(--gold);
+            padding: 10px;
+            border-radius: 50%;
+            cursor: pointer;
+            z-index: 100;
+        }
     </style>
 </head>
-<body>
+<body onclick="startExperience()">
 
-    <div class="welcome-text">كافيه العز يرحب بكم</div>
+    <audio id="alazzSong" loop>
+        <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+    </audio>
 
-    <a href="#order-section" class="hero-link">
-        <img src="https://images.unsplash.com/photo-1559496417-e7f25cb247f3?q=80&w=1000&auto=format&fit=crop" class="hero-img" alt="اضغط للطلب">
-    </a>
+    <div class="header-section">
+        <h1>كافيه العز</h1>
+    </div>
 
-    <div class="menu-container">
+    <div class="hero-box" onclick="document.getElementById('userInput').focus()">
+        <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000&auto=format&fit=crop" class="hero-img" alt="قهوة العز الملكية">
+    </div>
+
+    <div class="team-box">
+        <div class="team-title">فريق إدارة العز 🛡️</div>
+        <div class="leaders">
+            <div class="leader-item">القائد: أبو وليد 👑</div>
+            <div class="leader-item">الرئيس: أسامة ✨</div>
+        </div>
+        <div class="members">
+            <span>ريان ⚡</span>
+            <span>حيان 🔥</span>
+            <span>باسل 🦾</span>
+        </div>
+    </div>
+
+    <div class="menu-list">
         <div class="menu-item"><span>🥤 مشروب المليون</span> <span>15 SR</span></div>
         <div class="menu-item"><span>☕ لاتيه الذكاء</span> <span>18 SR</span></div>
         <div class="menu-item"><span>🍰 كيكة الألوان</span> <span>22 SR</span></div>
     </div>
 
-    <div class="chat-box" id="order-section">
+    <div class="order-container">
         <h3 style="margin:0">اطلب من العز ☕✨</h3>
-        <input type="text" id="userInput" placeholder="وش تبي نجهز لك؟" onkeypress="if(event.key==='Enter') askAI()">
+        <input type="text" id="userInput" placeholder="وش اللي بخاطرك يابطل؟" onkeypress="if(event.key==='Enter') askAI()">
         <button onclick="askAI()">إرسال الطلب</button>
-        <div id="ai-reply">أبشر بسعدك.. وش طلبك؟ 🤩</div>
+        <div id="ai-reply">أبشر بسعدك.. فريق العز بخدمتك! 🤩</div>
     </div>
 
-    <p style="margin-top:20px; font-size:11px; opacity:0.5">جميع الحقوق محفوظة - كافيه العز © 2026</p>
+    <div style="margin-top:40px; font-size:10px; opacity:0.3;">كافيه العز © 2026</div>
 
-<script>
-    async function askAI() {
-        const input = document.getElementById('userInput');
-        const reply = document.getElementById('ai-reply');
-        if (!input.value) return;
-
-        reply.innerText = "⏳ جاري التجهيز...";
-        const text = input.value;
-        input.value = "";
-
-        try {
-            const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
-                method: 'POST',
-                headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ chatInput: text })
-            });
-            const data = await res.json();
-            reply.innerText = data.output || data.text || "آمرنا؟ جرب مرة ثانية";
-        } catch (e) {
-            reply.innerText = "❌ الباريستا مشغول شوي، جرب بعد ثواني";
+    <script>
+        // تشغيل الأنشودة عند أول لمسة للموقع
+        function startExperience() {
+            var audio = document.getElementById("alazzSong");
+            audio.play();
         }
-    }
-</script>
+
+        async function askAI() {
+            const input = document.getElementById('userInput');
+            const reply = document.getElementById('ai-reply');
+            if (!input.value) return;
+
+            reply.innerText = "⏳ جاري تجهيز طلبك الفخم...";
+            const text = input.value;
+            input.value = "";
+
+            try {
+                const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ chatInput: text })
+                });
+                const data = await res.json();
+                reply.innerText = data.output || data.text || "آمرنا؟ جرب مرة ثانية";
+            } catch (e) {
+                reply.innerText = "❌ الباريستا مشغول بالتحضير، ثواني وارجع لنا!";
+            }
+        }
+    </script>
 </body>
 </html>
