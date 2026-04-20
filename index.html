@@ -1,542 +1,98 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>تحدي الشفرة الأسرية</title>
+    <meta charset="UTF-8">
+    <title>Elite Hunt Engine</title>
     <style>
-        * { box-sizing: border-box; }
-
-        html, body {
-            margin: 0;
-            height: 100%;
-            background: #05070c;
-            overflow: hidden;
-            font-family: "Segoe UI", Tahoma, sans-serif;
-        }
-
-        body {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            color: #fff;
-        }
-
-        canvas {
-            position: fixed;
-            inset: 0;
-            z-index: 0;
-        }
-
-        .glass-card {
-            position: relative;
-            z-index: 2;
-            width: min(92vw, 650px);
-            min-height: 420px;
-            padding: 30px;
-            border-radius: 28px;
-            background: rgba(255, 255, 255, 0.06);
-            border: 1px solid rgba(255, 255, 255, 0.12);
-            backdrop-filter: blur(22px);
-            box-shadow: 0 0 60px rgba(0, 242, 255, 0.12);
-            transition: transform 0.12s ease-out;
-        }
-
-        h1, h2, h3, p {
-            margin-top: 0;
-        }
-
-        .title {
-            font-size: 2rem;
-            margin-bottom: 10px;
-            color: #ffffff;
-        }
-
-        .subtitle {
-            color: #b8c7d8;
-            margin-bottom: 24px;
-            line-height: 1.8;
-        }
-
-        .rules {
-            text-align: right;
-            background: rgba(255,255,255,0.04);
-            border: 1px solid rgba(255,255,255,0.08);
-            padding: 18px;
-            border-radius: 16px;
-            margin-bottom: 20px;
-            line-height: 1.9;
-            color: #dbe8f5;
-        }
-
-        .rules li {
-            margin-bottom: 8px;
-        }
-
-        .input, .code-input {
-            width: 100%;
-            padding: 15px 16px;
-            margin: 14px 0;
-            border-radius: 14px;
-            border: 1px solid rgba(255,255,255,0.08);
-            background: rgba(0,0,0,0.35);
-            color: #00f2ff;
-            text-align: center;
-            font-size: 1.05rem;
-            outline: none;
-        }
-
-        .input:focus, .code-input:focus {
-            border-color: rgba(0,242,255,0.45);
-            box-shadow: 0 0 0 3px rgba(0,242,255,0.08);
-        }
-
-        .btn {
-            width: 100%;
-            padding: 14px 18px;
-            margin-top: 10px;
-            border: none;
-            border-radius: 14px;
-            cursor: pointer;
-            font-size: 1rem;
-            font-weight: bold;
-            transition: 0.2s;
-        }
-
-        .btn-primary {
-            background: linear-gradient(90deg, #00f2ff, #00b8ff);
-            color: #02131a;
-        }
-
-        .btn-primary:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.25);
-        }
-
-        .btn-secondary {
-            background: rgba(255,255,255,0.08);
-            color: #fff;
-            border: 1px solid rgba(255,255,255,0.1);
-        }
-
-        .topbar {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            gap: 10px;
-            flex-wrap: wrap;
-            margin-bottom: 18px;
-        }
-
-        .badge {
-            display: inline-block;
-            padding: 8px 14px;
-            border-radius: 999px;
-            background: rgba(0,242,255,0.12);
-            border: 1px solid rgba(0,242,255,0.25);
-            color: #9ff8ff;
-            font-size: 0.9rem;
-        }
-
-        .progress-wrap {
-            width: 100%;
-            height: 12px;
-            background: rgba(255,255,255,0.08);
-            border-radius: 999px;
-            overflow: hidden;
-            margin: 18px 0 22px;
-        }
-
-        .progress-bar {
-            height: 100%;
-            width: 0%;
-            background: linear-gradient(90deg, #00f2ff, #7a5cff);
-            border-radius: 999px;
-            transition: width 0.4s ease;
-        }
-
-        .question-box {
-            background: rgba(255,255,255,0.04);
-            border-radius: 18px;
-            padding: 22px;
-            border: 1px solid rgba(255,255,255,0.08);
-            margin-bottom: 18px;
-        }
-
-        .question-level {
-            color: #9ff8ff;
-            font-size: 0.92rem;
-            margin-bottom: 10px;
-        }
-
-        .question-text {
-            font-size: 1.3rem;
-            line-height: 1.8;
-            margin-bottom: 14px;
-        }
-
-        .code-collect {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin: 14px 0 22px;
-        }
-
-        .digit-box {
-            width: 46px;
-            height: 46px;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: rgba(255,255,255,0.06);
-            border: 1px solid rgba(255,255,255,0.08);
-            font-weight: bold;
-            font-size: 1.15rem;
-            color: #fff;
-        }
-
-        .digit-box.revealed {
-            background: rgba(0,242,255,0.14);
-            color: #9ff8ff;
-            border-color: rgba(0,242,255,0.28);
-            box-shadow: 0 0 20px rgba(0,242,255,0.12);
-        }
-
-        .feedback {
-            min-height: 28px;
-            margin-top: 12px;
-            font-size: 0.98rem;
-        }
-
-        .success {
-            color: #7dffbc;
-        }
-
-        .error {
-            color: #ff8f8f;
-        }
-
-        .big-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #00f2ff;
-            text-shadow: 0 0 20px rgba(0,242,255,0.25);
-            margin: 18px 0;
-        }
-
-        .center {
-            text-align: center;
-        }
-
-        .muted {
-            color: #bfd0df;
-            line-height: 1.8;
-        }
-
-        @media (max-width: 640px) {
-            .glass-card {
-                padding: 22px;
-                min-height: auto;
-            }
-
-            .question-text {
-                font-size: 1.1rem;
-            }
-        }
+        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;700&display=swap');
+        body { margin: 0; background: #050505; color: #fff; font-family: 'Tajawal', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 40px; width: 350px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        input, select { width: 100%; padding: 15px; margin: 15px 0; border-radius: 12px; border: none; background: rgba(255,255,255,0.05); color: #00f2ff; text-align: center; box-sizing: border-box; }
+        button { background: #00f2ff; color: #000; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; }
+        .hidden { display: none; }
     </style>
 </head>
 <body>
-    <canvas id="bg"></canvas>
-    <div class="glass-card" id="app"></div>
 
-    <script>
-        // =============================
-        // الخلفية المتحركة
-        // =============================
-        const canvas = document.getElementById("bg");
-        const ctx = canvas.getContext("2d");
+<div class="glass" id="app">
+    <div id="screen-intro">
+        <h1>Elite Challenge</h1>
+        <p>ابدأ المسابقة، وسيقوم المحرك الذكي بتوليد أسئلتك وتحدياتك فوراً.</p>
+        <select id="team"><option>الفريق الأول</option><option>الفريق الثاني</option><option>الفريق الثالث</option></select>
+        <button onclick="startGame()">بدء المسابقة</button>
+    </div>
 
-        function resizeCanvas() {
-            canvas.width = window.innerWidth;
-            canvas.height = window.innerHeight;
-        }
-        resizeCanvas();
-        window.addEventListener("resize", resizeCanvas);
+    <div id="screen-quiz" class="hidden">
+        <h3 id="qText">جاري جلب التحدي...</h3>
+        <input type="text" id="ans" placeholder="الإجابة...">
+        <button onclick="checkAnswer()">تأكيد</button>
+    </div>
 
-        const particles = Array.from({ length: 120 }, () => ({
-            x: Math.random() * window.innerWidth,
-            y: Math.random() * window.innerHeight,
-            s: Math.random() * 2 + 0.5,
-            v: Math.random() * 0.8 + 0.2
-        }));
+    <div id="screen-code" class="hidden">
+        <h2 style="color:#00f2ff">فك الشفرة (6 أرقام)</h2>
+        <p id="hint"></p>
+        <input type="number" id="codeIn" placeholder="------">
+        <button onclick="verifyCode()">إرسال الشفرة</button>
+    </div>
+</div>
 
-        function animateBg() {
-            ctx.fillStyle = "#05070c";
-            ctx.fillRect(0, 0, canvas.width, canvas.height);
+<script>
+    let game = { team: "", stage: 1, currentQ: 0 };
+    // الرابط الذي زودتني به
+    const WEBHOOK_URL = "https://voxa-3a7ac828dfb6.herokuapp.com/webhook/46a95cc8-6b1e-4889-8dc2-2b882a27c9ef";
 
-            for (const p of particles) {
-                ctx.beginPath();
-                ctx.fillStyle = "rgba(0,242,255,0.85)";
-                ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2);
-                ctx.fill();
+    async function startGame() {
+        game.team = document.getElementById('team').value;
+        document.getElementById('screen-intro').classList.add('hidden');
+        document.getElementById('screen-quiz').classList.remove('hidden');
+        fetchQuestion();
+    }
 
-                p.y += p.v;
-                if (p.y > canvas.height) {
-                    p.y = -10;
-                    p.x = Math.random() * canvas.width;
-                }
-            }
-
-            requestAnimationFrame(animateBg);
-        }
-        animateBg();
-
-        // =============================
-        // تأثير دوران البطاقة
-        // =============================
-        document.addEventListener("mousemove", e => {
-            const card = document.querySelector(".glass-card");
-            if (!card) return;
-            const x = (e.clientX / window.innerWidth - 0.5) * 12;
-            const y = (e.clientY / window.innerHeight - 0.5) * 12;
-            card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+    async function fetchQuestion() {
+        const res = await fetch(WEBHOOK_URL, { 
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ action: 'getQ', team: game.team }) 
         });
+        const data = await res.json();
+        document.getElementById('qText').innerText = data.question;
+    }
 
-        // =============================
-        // بيانات اللعبة
-        // =============================
-        const questions = [
-            {
-                level: "متوسط",
-                q: "شيء كلما أخذت منه كبر، فما هو؟",
-                answers: ["الحفرة", "حفرة"],
-                digit: "4"
-            },
-            {
-                level: "متوسط",
-                q: "ما العنصر الكيميائي الذي رمزه Fe؟",
-                answers: ["الحديد"],
-                digit: "8"
-            },
-            {
-                level: "فوق المتوسط",
-                q: "ما اسم المجرة التي ينتمي إليها كوكب الأرض؟",
-                answers: ["درب التبانة", "مجرة درب التبانة"],
-                digit: "1"
-            },
-            {
-                level: "صعب",
-                q: "ما اسم العملية التي تتحول فيها المادة من الحالة الصلبة إلى الغازية مباشرة؟",
-                answers: ["التسامي"],
-                digit: "7"
-            },
-            {
-                level: "صعب",
-                q: "ما العدد الأولي الزوجي الوحيد؟",
-                answers: ["2", "اثنان"],
-                digit: "3"
-            },
-            {
-                level: "صعب جدًا",
-                q: "ما العدد الذي إذا ضُرب في نفسه ثلاث مرات كان الناتج 125؟",
-                answers: ["5", "خمسة"],
-                digit: "9"
-            },
-            {
-                level: "صعب جدًا",
-                q: "من العالم الذي وضع أسس علم الجبر بصورته المنهجية في الحضارة الإسلامية؟",
-                answers: ["الخوارزمي", "محمد بن موسى الخوارزمي"],
-                digit: "6"
-            }
-        ];
+    async function checkAnswer() {
+        const ans = document.getElementById('ans').value;
+        const res = await fetch(WEBHOOK_URL, { 
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ action: 'checkA', answer: ans }) 
+        });
+        const data = await res.json();
+        
+        if(data.status === 'correct') {
+            game.currentQ++;
+            if(game.currentQ % 4 === 0) {
+                document.getElementById('screen-quiz').classList.add('hidden');
+                document.getElementById('screen-code').classList.remove('hidden');
+                document.getElementById('hint').innerText = data.locationHint;
+            } else { fetchQuestion(); }
+        } else { alert("حاول مجدداً!"); }
+    }
 
-        const state = {
-            familyName: "",
-            current: 0,
-            digits: []
-        };
-
-        const app = document.getElementById("app");
-
-        function normalizeText(text) {
-            return String(text || "")
-                .trim()
-                .toLowerCase()
-                .replace(/[\u064B-\u0652]/g, "")
-                .replace(/[أإآ]/g, "ا")
-                .replace(/ؤ/g, "و")
-                .replace(/ئ/g, "ي")
-                .replace(/ى/g, "ي")
-                .replace(/\s+/g, "");
-        }
-
-        function renderDigits() {
-            return questions.map((_, i) => {
-                const value = state.digits[i] || "•";
-                const revealed = state.digits[i] ? "revealed" : "";
-                return `<div class="digit-box ${revealed}">${value}</div>`;
-            }).join("");
-        }
-
-        function getProgress() {
-            return (state.digits.length / questions.length) * 100;
-        }
-
-        function topSection() {
-            return `
-                <div class="topbar">
-                    <div class="badge">الأسرة: ${state.familyName || "—"}</div>
-                    <div class="badge">التقدم: ${state.digits.length} / ${questions.length}</div>
-                </div>
-
-                <div class="progress-wrap">
-                    <div class="progress-bar" style="width:${getProgress()}%"></div>
-                </div>
-
-                <div class="code-collect">
-                    ${renderDigits()}
-                </div>
-            `;
-        }
-
-        function renderIntro() {
-            app.innerHTML = `
-                <div class="center">
-                    <h1 class="title">تحدي الشفرة الأسرية</h1>
-                    <p class="subtitle">
-                        أهلاً بكم في المسابقة الأسرية. أمامكم مجموعة أسئلة تبدأ من مستوى متوسط
-                        ثم ترتفع تدريجيًا حتى تصل إلى مستوى صعب جدًا.
-                    </p>
-                </div>
-
-                <div class="rules">
-                    <ul>
-                        <li>كل سؤال صحيح يمنح الأسرة <strong>رقمًا واحدًا</strong> من أرقام الشفرة.</li>
-                        <li>اجمعوا جميع الأرقام بالترتيب.</li>
-                        <li>بعد نهاية الأسئلة ستظهر لكم خانة إدخال <strong>الكود النهائي</strong>.</li>
-                        <li>إذا كان الكود صحيحًا يتم فتح القفل وإعلان الفوز.</li>
-                    </ul>
-                </div>
-
-                <input id="familyName" class="input" type="text" placeholder="اكتب اسم الأسرة" />
-
-                <button class="btn btn-primary" onclick="startGame()">ابدأ التحدي</button>
-            `;
-        }
-
-        function startGame() {
-            const name = document.getElementById("familyName").value.trim();
-            state.familyName = name || "الأسرة المشاركة";
-            state.current = 0;
-            state.digits = [];
-            renderQuestion();
-        }
-
-        function renderQuestion() {
-            if (state.current >= questions.length) {
-                renderFinalUnlock();
-                return;
-            }
-
-            const q = questions[state.current];
-
-            app.innerHTML = `
-                ${topSection()}
-
-                <div class="question-box">
-                    <div class="question-level">المستوى: ${q.level}</div>
-                    <div class="question-text">${q.q}</div>
-                    <input id="answerInput" class="input" type="text" placeholder="اكتب إجابتك هنا" />
-                    <button class="btn btn-primary" onclick="submitAnswer()">تأكيد الإجابة</button>
-                    <div id="feedback" class="feedback"></div>
-                </div>
-            `;
-
-            setTimeout(() => {
-                const input = document.getElementById("answerInput");
-                if (input) input.focus();
-            }, 50);
-        }
-
-        function submitAnswer() {
-            const q = questions[state.current];
-            const input = document.getElementById("answerInput");
-            const feedback = document.getElementById("feedback");
-            const userAnswer = normalizeText(input.value);
-
-            const isCorrect = q.answers.some(ans => normalizeText(ans) === userAnswer);
-
-            if (isCorrect) {
-                state.digits.push(q.digit);
-                state.current++;
-
-                app.innerHTML = `
-                    ${topSection()}
-
-                    <div class="question-box center">
-                        <h2>إجابة صحيحة ✅</h2>
-                        <p class="muted">أحسنتم يا ${state.familyName}، لقد حصلتم على رقم من الشفرة.</p>
-                        <div class="big-number">${q.digit}</div>
-                        <p class="muted">احتفظوا بهذا الرقم جيدًا وأكملوا التحدي.</p>
-                        <button class="btn btn-primary" onclick="renderQuestion()">السؤال التالي</button>
-                    </div>
-                `;
-            } else {
-                feedback.className = "feedback error";
-                feedback.textContent = "الإجابة غير صحيحة، حاولوا مرة أخرى.";
-            }
-        }
-
-        function renderFinalUnlock() {
-            app.innerHTML = `
-                ${topSection()}
-
-                <div class="question-box center">
-                    <h2>المرحلة الأخيرة</h2>
-                    <p class="muted">
-                        انتهت جميع الأسئلة. الآن اجمعوا الأرقام التي حصلتم عليها
-                        واكتبوا الشفرة الكاملة بالترتيب لفتح القفل.
-                    </p>
-
-                    <input id="finalCode" class="code-input" type="text" placeholder="أدخل الشفرة الكاملة" />
-                    <button class="btn btn-primary" onclick="checkFinalCode()">فك القفل</button>
-                    <div id="finalFeedback" class="feedback"></div>
-                </div>
-            `;
-        }
-
-        function checkFinalCode() {
-            const entered = document.getElementById("finalCode").value.trim();
-            const correctCode = state.digits.join("");
-            const feedback = document.getElementById("finalFeedback");
-
-            if (entered === correctCode) {
-                renderWin(correctCode);
-            } else {
-                feedback.className = "feedback error";
-                feedback.textContent = "الشفرة غير صحيحة، تأكدوا من ترتيب الأرقام.";
-            }
-        }
-
-        function renderWin(code) {
-            app.innerHTML = `
-                <div class="center">
-                    <h1 class="title">تم فتح القفل بنجاح 🎉</h1>
-                    <p class="subtitle">مبروك ${state.familyName}، لقد أكملتم التحدي بنجاح.</p>
-
-                    <div class="question-box center">
-                        <p class="muted">الشفرة النهائية هي:</p>
-                        <div class="big-number">${code}</div>
-                        <p class="muted">أداء رائع في التحدي من المستوى المتوسط حتى الصعب جدًا.</p>
-                    </div>
-
-                    <button class="btn btn-primary" onclick="renderIntro()">إعادة المسابقة</button>
-                </div>
-            `;
-        }
-
-        renderIntro();
-    </script>
+    async function verifyCode() {
+        const code = document.getElementById('codeIn').value;
+        const res = await fetch(WEBHOOK_URL, { 
+            method: 'POST', 
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify({ action: 'checkCode', code: code }) 
+        });
+        const data = await res.json();
+        
+        if(data.status === 'success') {
+            alert("ممتاز! انتقل للمرحلة التالية.");
+            document.getElementById('screen-code').classList.add('hidden');
+            document.getElementById('screen-quiz').classList.remove('hidden');
+            fetchQuestion();
+        } else { alert("رقم خاطئ!"); }
+    }
+</script>
 </body>
 </html>
