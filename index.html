@@ -2,55 +2,46 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Elite Hunt Engine</title>
+    <title>Elite Hunt</title>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;700&display=swap');
-        body { margin: 0; background: #050505; color: #fff; font-family: 'Tajawal', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 40px; width: 320px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
-        input, select { width: 100%; padding: 15px; margin: 15px 0; border-radius: 12px; border: none; background: rgba(255,255,255,0.05); color: #00f2ff; text-align: center; box-sizing: border-box; }
-        button { background: #00f2ff; color: #000; padding: 15px; border-radius: 12px; border: none; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
-        .hidden { display: none; }
+        body { background: #000; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; width: 300px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #222; color: #0ff; text-align: center; }
+        button { background: #0ff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
     </style>
 </head>
 <body>
 
-<div class="glass" id="app">
-    <div id="intro">
-        <h1>Elite Challenge</h1>
-        <p>نظام ذكي لتحدي الفرق. 4 أسئلة لكل مرحلة، تليها شفرة سرية.</p>
+<div class="box" id="app">
+    <div id="view-intro">
+        <h1>Elite Hunt</h1>
+        <p>مرحباً بك! هذه المسابقة تتكون من 6 شفرات. ابدأ، أجب على الأسئلة، وافتح الأقفال!</p>
         <select id="team"><option>الفريق الأول</option><option>الفريق الثاني</option><option>الفريق الثالث</option></select>
-        <button onclick="startGame()">بدء المسابقة</button>
-    </div>
-
-    <div id="game" class="hidden">
-        <h3 id="display-area">جاري التواصل مع المحرك...</h3>
-        <input type="text" id="user-input" placeholder="الإجابة أو الشفرة...">
-        <button id="main-btn" onclick="sendAction()">تأكيد</button>
+        <button onclick="update('start')">ابدأ الرحلة</button>
     </div>
 </div>
 
 <script>
     const WEBHOOK = "https://voxa-3a7ac828dfb6.herokuapp.com/webhook/46a95cc8-6b1e-4889-8dc2-2b882a27c9ef";
-    let state = { action: 'getQ', team: '' };
+    let state = { team: "", action: "get_question" };
 
-    async function startGame() {
-        state.team = document.getElementById('team').value;
-        document.getElementById('intro').classList.add('hidden');
-        document.getElementById('game').classList.remove('hidden');
-        sendAction();
-    }
+    async function update(type) {
+        if(type === 'start') { state.team = document.getElementById('team').value; }
+        const inputVal = document.getElementById('ans') ? document.getElementById('ans').value : "";
 
-    async function sendAction() {
-        const val = document.getElementById('user-input').value;
-        const payload = { action: state.action, team: state.team, input: val };
-        
-        const res = await fetch(WEBHOOK, { method: 'POST', body: JSON.stringify(payload) });
+        const res = await fetch(WEBHOOK, {
+            method: 'POST',
+            body: JSON.stringify({ action: state.action, team: state.team, input: inputVal })
+        });
         const data = await res.json();
         
-        // n8n سيرد بالمنطق التالي:
-        document.getElementById('display-area').innerText = data.message;
-        state.action = data.nextAction; // المحرك هو من يقرر الخطوة القادمة
-        document.getElementById('user-input').value = '';
+        // تحديث الواجهة بناءً على رد n8n
+        document.getElementById('app').innerHTML = `
+            <h3>${data.message}</h3>
+            <input id="ans" placeholder="أدخل الإجابة...">
+            <button onclick="update('next')">إرسال</button>
+        `;
+        state.action = data.next_action;
     }
 </script>
 </body>
