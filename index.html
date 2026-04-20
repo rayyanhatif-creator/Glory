@@ -1,166 +1,542 @@
- <!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>كافيه العز | النسخة الكاملة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700&display=swap" rel="stylesheet">
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>تحدي الشفرة الأسرية</title>
     <style>
-        :root { --gold: #FFD700; --black: #000000; --dark: #121212; }
-        body { font-family: 'Tajawal', sans-serif; background-color: var(--black); color: var(--gold); display: flex; flex-direction: column; align-items: center; margin: 0; padding: 20px; min-height: 100vh; }
-        h1 { font-size: 50px; margin: 20px 0; text-shadow: 0 0 15px rgba(255,215,0,0.5); }
-        .hero-img { width: 100%; max-width: 600px; border-radius: 25px; border: 2px solid var(--gold); height: 300px; object-fit: cover; margin-bottom: 25px; }
-        
-        .team-box { width: 100%; max-width: 600px; background: var(--dark); padding: 25px; border-radius: 20px; text-align: center; border: 1px solid #222; margin-bottom: 25px; box-sizing: border-box; }
-        .on-duty { margin-top: 12px; font-size: 15px; color: #fff; background: rgba(255, 215, 0, 0.1); padding: 8px 18px; border-radius: 25px; border: 1px solid var(--gold); display: inline-block; }
+        * { box-sizing: border-box; }
 
-        .menu-container { width: 100%; max-width: 600px; margin-bottom: 30px; }
-        .menu-category { background: var(--dark); border: 1px solid #333; border-radius: 20px; padding: 20px; margin-bottom: 20px; box-sizing: border-box; }
-        .category-title { border-bottom: 2px solid var(--gold); padding-bottom: 10px; margin-bottom: 15px; font-size: 20px; font-weight: bold; display: flex; align-items: center; gap: 10px; }
-        .menu-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
-        .menu-item { background: #080808; padding: 12px; border-radius: 12px; border-right: 4px solid var(--gold); font-size: 15px; color: #eee; }
+        html, body {
+            margin: 0;
+            height: 100%;
+            background: #05070c;
+            overflow: hidden;
+            font-family: "Segoe UI", Tahoma, sans-serif;
+        }
 
-        .order-container { background: var(--gold); color: #000; width: 100%; max-width: 600px; padding: 30px; border-radius: 30px; text-align: center; box-sizing: border-box; }
-        input { width: 100%; padding: 15px; border-radius: 12px; border: 2px solid #000; margin-top: 15px; font-family: 'Tajawal'; font-weight: bold; text-align: center; font-size: 16px; box-sizing: border-box; }
-        .btn-group { display: flex; gap: 10px; margin-top: 15px; }
-        button { flex: 2; background: #000; color: var(--gold); padding: 15px; border-radius: 12px; border: none; font-weight: bold; cursor: pointer; font-size: 18px; }
-        .btn-clear { flex: 1; background: #444; color: #fff; font-size: 14px; }
-        #ai-reply-box { display: none; margin-top: 20px; padding: 20px; background: #fff; color: #000; border-radius: 20px; border: 4px solid #000; font-weight: bold; cursor: pointer; }
-        
-        .story-box { width: 100%; max-width: 600px; margin: 40px 0 20px; padding: 30px; background: var(--dark); border-radius: 20px; border: 1px solid #333; line-height: 1.8; text-align: justify; box-sizing: border-box; }
-        .survey-container { width: 100%; max-width: 600px; background: var(--dark); padding: 25px; border-radius: 20px; border: 1px solid var(--gold); text-align: center; box-sizing: border-box; margin-bottom: 30px; }
-        .stars { display: flex; justify-content: center; gap: 10px; margin: 15px 0; font-size: 30px; cursor: pointer; }
-        .star { color: #444; }
-        .star.active { color: var(--gold); }
+        body {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: #fff;
+        }
 
-        .footer { margin-top: 40px; margin-bottom: 20px; font-size: 14px; color: #555; text-align: center; }
+        canvas {
+            position: fixed;
+            inset: 0;
+            z-index: 0;
+        }
+
+        .glass-card {
+            position: relative;
+            z-index: 2;
+            width: min(92vw, 650px);
+            min-height: 420px;
+            padding: 30px;
+            border-radius: 28px;
+            background: rgba(255, 255, 255, 0.06);
+            border: 1px solid rgba(255, 255, 255, 0.12);
+            backdrop-filter: blur(22px);
+            box-shadow: 0 0 60px rgba(0, 242, 255, 0.12);
+            transition: transform 0.12s ease-out;
+        }
+
+        h1, h2, h3, p {
+            margin-top: 0;
+        }
+
+        .title {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #ffffff;
+        }
+
+        .subtitle {
+            color: #b8c7d8;
+            margin-bottom: 24px;
+            line-height: 1.8;
+        }
+
+        .rules {
+            text-align: right;
+            background: rgba(255,255,255,0.04);
+            border: 1px solid rgba(255,255,255,0.08);
+            padding: 18px;
+            border-radius: 16px;
+            margin-bottom: 20px;
+            line-height: 1.9;
+            color: #dbe8f5;
+        }
+
+        .rules li {
+            margin-bottom: 8px;
+        }
+
+        .input, .code-input {
+            width: 100%;
+            padding: 15px 16px;
+            margin: 14px 0;
+            border-radius: 14px;
+            border: 1px solid rgba(255,255,255,0.08);
+            background: rgba(0,0,0,0.35);
+            color: #00f2ff;
+            text-align: center;
+            font-size: 1.05rem;
+            outline: none;
+        }
+
+        .input:focus, .code-input:focus {
+            border-color: rgba(0,242,255,0.45);
+            box-shadow: 0 0 0 3px rgba(0,242,255,0.08);
+        }
+
+        .btn {
+            width: 100%;
+            padding: 14px 18px;
+            margin-top: 10px;
+            border: none;
+            border-radius: 14px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: 0.2s;
+        }
+
+        .btn-primary {
+            background: linear-gradient(90deg, #00f2ff, #00b8ff);
+            color: #02131a;
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 30px rgba(0, 242, 255, 0.25);
+        }
+
+        .btn-secondary {
+            background: rgba(255,255,255,0.08);
+            color: #fff;
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+
+        .topbar {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+            margin-bottom: 18px;
+        }
+
+        .badge {
+            display: inline-block;
+            padding: 8px 14px;
+            border-radius: 999px;
+            background: rgba(0,242,255,0.12);
+            border: 1px solid rgba(0,242,255,0.25);
+            color: #9ff8ff;
+            font-size: 0.9rem;
+        }
+
+        .progress-wrap {
+            width: 100%;
+            height: 12px;
+            background: rgba(255,255,255,0.08);
+            border-radius: 999px;
+            overflow: hidden;
+            margin: 18px 0 22px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #00f2ff, #7a5cff);
+            border-radius: 999px;
+            transition: width 0.4s ease;
+        }
+
+        .question-box {
+            background: rgba(255,255,255,0.04);
+            border-radius: 18px;
+            padding: 22px;
+            border: 1px solid rgba(255,255,255,0.08);
+            margin-bottom: 18px;
+        }
+
+        .question-level {
+            color: #9ff8ff;
+            font-size: 0.92rem;
+            margin-bottom: 10px;
+        }
+
+        .question-text {
+            font-size: 1.3rem;
+            line-height: 1.8;
+            margin-bottom: 14px;
+        }
+
+        .code-collect {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin: 14px 0 22px;
+        }
+
+        .digit-box {
+            width: 46px;
+            height: 46px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: rgba(255,255,255,0.06);
+            border: 1px solid rgba(255,255,255,0.08);
+            font-weight: bold;
+            font-size: 1.15rem;
+            color: #fff;
+        }
+
+        .digit-box.revealed {
+            background: rgba(0,242,255,0.14);
+            color: #9ff8ff;
+            border-color: rgba(0,242,255,0.28);
+            box-shadow: 0 0 20px rgba(0,242,255,0.12);
+        }
+
+        .feedback {
+            min-height: 28px;
+            margin-top: 12px;
+            font-size: 0.98rem;
+        }
+
+        .success {
+            color: #7dffbc;
+        }
+
+        .error {
+            color: #ff8f8f;
+        }
+
+        .big-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00f2ff;
+            text-shadow: 0 0 20px rgba(0,242,255,0.25);
+            margin: 18px 0;
+        }
+
+        .center {
+            text-align: center;
+        }
+
+        .muted {
+            color: #bfd0df;
+            line-height: 1.8;
+        }
+
+        @media (max-width: 640px) {
+            .glass-card {
+                padding: 22px;
+                min-height: auto;
+            }
+
+            .question-text {
+                font-size: 1.1rem;
+            }
+        }
     </style>
 </head>
 <body>
-
-    <h1>كـافـيـه الـعـز</h1>
-
-    <img src="https://images.unsplash.com/photo-1447933601403-0c6688de566e?q=80&w=1000&auto=format&fit=crop" class="hero-img">
-
-    <div class="team-box">
-        <div style="font-weight: bold; font-size: 20px;">القائد: أبو وليد 👑 | الرئيس: أسامة ✨</div>
-        <div style="font-size: 16px; color: #aaa; margin: 8px 0;">ريان • حيان • باسل • ذكاء العز</div>
-        <div class="on-duty">🟢 متواجد الآن لخدمتكم: أسامة، ريان، حيان، باسل، <b>ذكاء العز 🤖</b></div>
-    </div>
-
-    <div class="menu-container">
-        <div class="menu-category">
-            <div class="category-title">🍟 مـوالـح الـعـز</div>
-            <div class="menu-grid">
-                <div class="menu-item">بطاطس مقلية</div>
-                <div class="menu-item">ذرة</div>
-                <div class="menu-item">سمبوسة</div>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-title">🍰 حـلا الـعـز</div>
-            <div class="menu-grid">
-                <div class="menu-item">كريمة</div>
-                <div class="menu-item">جلي</div>
-                <div class="menu-item">آيسكريم</div>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-title">🍹 مـشـروبـات بـاردة</div>
-            <div class="menu-grid">
-                <div class="menu-item">موهيتو مانجو</div>
-                <div class="menu-item">موهيتو برتقال</div>
-                <div class="menu-item">عصير مانجو</div>
-                <div class="menu-item">عصير برتقال</div>
-            </div>
-        </div>
-
-        <div class="menu-category">
-            <div class="category-title">☕ مـشـروبـات حـارة</div>
-            <div class="menu-grid">
-                <div class="menu-item">نعناع</div>
-                <div class="menu-item">قهوة</div>
-            </div>
-        </div>
-    </div>
-
-    <div class="order-container">
-        <h3 style="margin:0">اطلب عبر ذكاء العز 🤖☕</h3>
-        <input type="text" id="userInput" placeholder="وش بخاطرك تطلب؟" onkeypress="if(event.key==='Enter') askAI()">
-        <div class="btn-group">
-            <button onclick="askAI()">إرسال الطلب</button>
-            <button class="btn-clear" onclick="resetAll()">الرجوع ↩️</button>
-        </div>
-        <div id="ai-reply-box" onclick="resetAll()">
-            <div id="ai-text"></div>
-            <div style="font-size: 10px; margin-top: 15px; color: #999;">(اضغط للمسح والرجوع)</div>
-        </div>
-    </div>
-
-    <div class="story-box">
-        <h2 style="text-align: center; color: var(--gold);">قصة العز 📜</h2>
-        بدأت الرحلة من حلقات الصفوة، وبفضل تكاتف الفريق وعملهم الجاد صمم <b>ريان</b> هذا الموقع ليكون واجهتنا الرقمية بقيادة أبو وليد ورئاسة أسامة.
-    </div>
-
-    <div class="survey-container">
-        <h3>تقييمك لنا يهمنا ⭐</h3>
-        <div class="stars" id="starRating">
-            <span class="star" onclick="rate(1)">★</span>
-            <span class="star" onclick="rate(2)">★</span>
-            <span class="star" onclick="rate(3)">★</span>
-            <span class="star" onclick="rate(4)">★</span>
-            <span class="star" onclick="rate(5)">★</span>
-        </div>
-        <div id="ratingMsg" style="color: var(--gold); font-weight: bold;"></div>
-    </div>
-
-    <img src="https://images.unsplash.com/photo-1495474472287-4d71bcdd2085?q=80&w=1000&auto=format&fit=crop" class="hero-img">
-
-    <div class="footer">
-        جميع الحقوق محفوظة لأسرة العز © 2026
-    </div>
+    <canvas id="bg"></canvas>
+    <div class="glass-card" id="app"></div>
 
     <script>
-        async function askAI() {
-            const input = document.getElementById('userInput');
-            const box = document.getElementById('ai-reply-box');
-            const text = document.getElementById('ai-text');
-            
-            if (!input.value.trim()) return;
+        // =============================
+        // الخلفية المتحركة
+        // =============================
+        const canvas = document.getElementById("bg");
+        const ctx = canvas.getContext("2d");
 
-            const currentMessage = input.value;
-            input.value = ""; 
-            
-            box.style.display = "block";
-            text.innerText = "⏳ جاري التجهيز...";
+        function resizeCanvas() {
+            canvas.width = window.innerWidth;
+            canvas.height = window.innerHeight;
+        }
+        resizeCanvas();
+        window.addEventListener("resize", resizeCanvas);
 
-            try {
-                const res = await fetch('https://voxa-3a7ac828dfb6.herokuapp.com/webhook/f679c772-d169-4e46-a1cd-35bd223dc4b6', {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ chatInput: currentMessage })
-                });
-                const data = await res.json();
-                text.innerText = data.output || data.text || "تم استلام طلبك!";
-            } catch (e) {
-                text.innerText = "أبشر، طلبك وصل!";
+        const particles = Array.from({ length: 120 }, () => ({
+            x: Math.random() * window.innerWidth,
+            y: Math.random() * window.innerHeight,
+            s: Math.random() * 2 + 0.5,
+            v: Math.random() * 0.8 + 0.2
+        }));
+
+        function animateBg() {
+            ctx.fillStyle = "#05070c";
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+            for (const p of particles) {
+                ctx.beginPath();
+                ctx.fillStyle = "rgba(0,242,255,0.85)";
+                ctx.arc(p.x, p.y, p.s, 0, Math.PI * 2);
+                ctx.fill();
+
+                p.y += p.v;
+                if (p.y > canvas.height) {
+                    p.y = -10;
+                    p.x = Math.random() * canvas.width;
+                }
+            }
+
+            requestAnimationFrame(animateBg);
+        }
+        animateBg();
+
+        // =============================
+        // تأثير دوران البطاقة
+        // =============================
+        document.addEventListener("mousemove", e => {
+            const card = document.querySelector(".glass-card");
+            if (!card) return;
+            const x = (e.clientX / window.innerWidth - 0.5) * 12;
+            const y = (e.clientY / window.innerHeight - 0.5) * 12;
+            card.style.transform = `rotateY(${x}deg) rotateX(${-y}deg)`;
+        });
+
+        // =============================
+        // بيانات اللعبة
+        // =============================
+        const questions = [
+            {
+                level: "متوسط",
+                q: "شيء كلما أخذت منه كبر، فما هو؟",
+                answers: ["الحفرة", "حفرة"],
+                digit: "4"
+            },
+            {
+                level: "متوسط",
+                q: "ما العنصر الكيميائي الذي رمزه Fe؟",
+                answers: ["الحديد"],
+                digit: "8"
+            },
+            {
+                level: "فوق المتوسط",
+                q: "ما اسم المجرة التي ينتمي إليها كوكب الأرض؟",
+                answers: ["درب التبانة", "مجرة درب التبانة"],
+                digit: "1"
+            },
+            {
+                level: "صعب",
+                q: "ما اسم العملية التي تتحول فيها المادة من الحالة الصلبة إلى الغازية مباشرة؟",
+                answers: ["التسامي"],
+                digit: "7"
+            },
+            {
+                level: "صعب",
+                q: "ما العدد الأولي الزوجي الوحيد؟",
+                answers: ["2", "اثنان"],
+                digit: "3"
+            },
+            {
+                level: "صعب جدًا",
+                q: "ما العدد الذي إذا ضُرب في نفسه ثلاث مرات كان الناتج 125؟",
+                answers: ["5", "خمسة"],
+                digit: "9"
+            },
+            {
+                level: "صعب جدًا",
+                q: "من العالم الذي وضع أسس علم الجبر بصورته المنهجية في الحضارة الإسلامية؟",
+                answers: ["الخوارزمي", "محمد بن موسى الخوارزمي"],
+                digit: "6"
+            }
+        ];
+
+        const state = {
+            familyName: "",
+            current: 0,
+            digits: []
+        };
+
+        const app = document.getElementById("app");
+
+        function normalizeText(text) {
+            return String(text || "")
+                .trim()
+                .toLowerCase()
+                .replace(/[\u064B-\u0652]/g, "")
+                .replace(/[أإآ]/g, "ا")
+                .replace(/ؤ/g, "و")
+                .replace(/ئ/g, "ي")
+                .replace(/ى/g, "ي")
+                .replace(/\s+/g, "");
+        }
+
+        function renderDigits() {
+            return questions.map((_, i) => {
+                const value = state.digits[i] || "•";
+                const revealed = state.digits[i] ? "revealed" : "";
+                return `<div class="digit-box ${revealed}">${value}</div>`;
+            }).join("");
+        }
+
+        function getProgress() {
+            return (state.digits.length / questions.length) * 100;
+        }
+
+        function topSection() {
+            return `
+                <div class="topbar">
+                    <div class="badge">الأسرة: ${state.familyName || "—"}</div>
+                    <div class="badge">التقدم: ${state.digits.length} / ${questions.length}</div>
+                </div>
+
+                <div class="progress-wrap">
+                    <div class="progress-bar" style="width:${getProgress()}%"></div>
+                </div>
+
+                <div class="code-collect">
+                    ${renderDigits()}
+                </div>
+            `;
+        }
+
+        function renderIntro() {
+            app.innerHTML = `
+                <div class="center">
+                    <h1 class="title">تحدي الشفرة الأسرية</h1>
+                    <p class="subtitle">
+                        أهلاً بكم في المسابقة الأسرية. أمامكم مجموعة أسئلة تبدأ من مستوى متوسط
+                        ثم ترتفع تدريجيًا حتى تصل إلى مستوى صعب جدًا.
+                    </p>
+                </div>
+
+                <div class="rules">
+                    <ul>
+                        <li>كل سؤال صحيح يمنح الأسرة <strong>رقمًا واحدًا</strong> من أرقام الشفرة.</li>
+                        <li>اجمعوا جميع الأرقام بالترتيب.</li>
+                        <li>بعد نهاية الأسئلة ستظهر لكم خانة إدخال <strong>الكود النهائي</strong>.</li>
+                        <li>إذا كان الكود صحيحًا يتم فتح القفل وإعلان الفوز.</li>
+                    </ul>
+                </div>
+
+                <input id="familyName" class="input" type="text" placeholder="اكتب اسم الأسرة" />
+
+                <button class="btn btn-primary" onclick="startGame()">ابدأ التحدي</button>
+            `;
+        }
+
+        function startGame() {
+            const name = document.getElementById("familyName").value.trim();
+            state.familyName = name || "الأسرة المشاركة";
+            state.current = 0;
+            state.digits = [];
+            renderQuestion();
+        }
+
+        function renderQuestion() {
+            if (state.current >= questions.length) {
+                renderFinalUnlock();
+                return;
+            }
+
+            const q = questions[state.current];
+
+            app.innerHTML = `
+                ${topSection()}
+
+                <div class="question-box">
+                    <div class="question-level">المستوى: ${q.level}</div>
+                    <div class="question-text">${q.q}</div>
+                    <input id="answerInput" class="input" type="text" placeholder="اكتب إجابتك هنا" />
+                    <button class="btn btn-primary" onclick="submitAnswer()">تأكيد الإجابة</button>
+                    <div id="feedback" class="feedback"></div>
+                </div>
+            `;
+
+            setTimeout(() => {
+                const input = document.getElementById("answerInput");
+                if (input) input.focus();
+            }, 50);
+        }
+
+        function submitAnswer() {
+            const q = questions[state.current];
+            const input = document.getElementById("answerInput");
+            const feedback = document.getElementById("feedback");
+            const userAnswer = normalizeText(input.value);
+
+            const isCorrect = q.answers.some(ans => normalizeText(ans) === userAnswer);
+
+            if (isCorrect) {
+                state.digits.push(q.digit);
+                state.current++;
+
+                app.innerHTML = `
+                    ${topSection()}
+
+                    <div class="question-box center">
+                        <h2>إجابة صحيحة ✅</h2>
+                        <p class="muted">أحسنتم يا ${state.familyName}، لقد حصلتم على رقم من الشفرة.</p>
+                        <div class="big-number">${q.digit}</div>
+                        <p class="muted">احتفظوا بهذا الرقم جيدًا وأكملوا التحدي.</p>
+                        <button class="btn btn-primary" onclick="renderQuestion()">السؤال التالي</button>
+                    </div>
+                `;
+            } else {
+                feedback.className = "feedback error";
+                feedback.textContent = "الإجابة غير صحيحة، حاولوا مرة أخرى.";
             }
         }
 
-        function resetAll() {
-            document.getElementById('ai-reply-box').style.display = "none";
-            document.getElementById('userInput').value = "";
-            document.getElementById('ai-text').innerText = "";
+        function renderFinalUnlock() {
+            app.innerHTML = `
+                ${topSection()}
+
+                <div class="question-box center">
+                    <h2>المرحلة الأخيرة</h2>
+                    <p class="muted">
+                        انتهت جميع الأسئلة. الآن اجمعوا الأرقام التي حصلتم عليها
+                        واكتبوا الشفرة الكاملة بالترتيب لفتح القفل.
+                    </p>
+
+                    <input id="finalCode" class="code-input" type="text" placeholder="أدخل الشفرة الكاملة" />
+                    <button class="btn btn-primary" onclick="checkFinalCode()">فك القفل</button>
+                    <div id="finalFeedback" class="feedback"></div>
+                </div>
+            `;
         }
 
-        function rate(n) {
-            const stars = document.querySelectorAll('.star');
-            stars.forEach((s, i) => s.classList.toggle('active', i < n));
-            const msgs = ["شكراً لصدقك!", "نطمح للأفضل!", "سعيدون برضاك!", "رائع جداً!", "أنت العز كله! 🔥"];
-            document.getElementById('ratingMsg').innerText = msgs[n-1];
+        function checkFinalCode() {
+            const entered = document.getElementById("finalCode").value.trim();
+            const correctCode = state.digits.join("");
+            const feedback = document.getElementById("finalFeedback");
+
+            if (entered === correctCode) {
+                renderWin(correctCode);
+            } else {
+                feedback.className = "feedback error";
+                feedback.textContent = "الشفرة غير صحيحة، تأكدوا من ترتيب الأرقام.";
+            }
         }
+
+        function renderWin(code) {
+            app.innerHTML = `
+                <div class="center">
+                    <h1 class="title">تم فتح القفل بنجاح 🎉</h1>
+                    <p class="subtitle">مبروك ${state.familyName}، لقد أكملتم التحدي بنجاح.</p>
+
+                    <div class="question-box center">
+                        <p class="muted">الشفرة النهائية هي:</p>
+                        <div class="big-number">${code}</div>
+                        <p class="muted">أداء رائع في التحدي من المستوى المتوسط حتى الصعب جدًا.</p>
+                    </div>
+
+                    <button class="btn btn-primary" onclick="renderIntro()">إعادة المسابقة</button>
+                </div>
+            `;
+        }
+
+        renderIntro();
     </script>
 </body>
 </html>
