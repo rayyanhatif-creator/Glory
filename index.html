@@ -2,12 +2,12 @@
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
-    <title>Elite Hunt</title>
+    <title>Elite Hunt Engine</title>
     <style>
-        body { background: #000; color: #fff; font-family: sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
-        .box { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; width: 300px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
+        body { background: #000; color: #fff; font-family: 'Tajawal', sans-serif; display: flex; justify-content: center; align-items: center; height: 100vh; margin: 0; }
+        .box { background: rgba(255,255,255,0.05); backdrop-filter: blur(20px); padding: 40px; border-radius: 30px; width: 320px; text-align: center; border: 1px solid rgba(255,255,255,0.1); }
         input, select { width: 100%; padding: 12px; margin: 10px 0; border-radius: 8px; border: none; background: #222; color: #0ff; text-align: center; }
-        button { background: #0ff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; }
+        button { background: #0ff; border: none; padding: 12px; width: 100%; border-radius: 8px; font-weight: bold; cursor: pointer; margin-top: 10px; }
     </style>
 </head>
 <body>
@@ -15,9 +15,9 @@
 <div class="box" id="app">
     <div id="view-intro">
         <h1>Elite Hunt</h1>
-        <p>مرحباً بك! هذه المسابقة تتكون من 6 شفرات. ابدأ، أجب على الأسئلة، وافتح الأقفال!</p>
+        <p style="font-size: 0.9rem; color: #ccc;">مرحباً بك! هذه مغامرة ذكاء. اللعبة تتكون من 6 مراحل. في كل مرحلة عليك حل 4 أسئلة لفتح الشفرة. ابحث عن الشفرات في أماكننا الخاصة!</p>
         <select id="team"><option>الفريق الأول</option><option>الفريق الثاني</option><option>الفريق الثالث</option></select>
-        <button onclick="update('start')">ابدأ الرحلة</button>
+        <button onclick="startPlay()">أنا مستعد</button>
     </div>
 </div>
 
@@ -25,21 +25,26 @@
     const WEBHOOK = "https://voxa-3a7ac828dfb6.herokuapp.com/webhook/46a95cc8-6b1e-4889-8dc2-2b882a27c9ef";
     let state = { team: "", action: "get_question" };
 
-    async function update(type) {
-        if(type === 'start') { state.team = document.getElementById('team').value; }
-        const inputVal = document.getElementById('ans') ? document.getElementById('ans').value : "";
+    function startPlay() {
+        state.team = document.getElementById('team').value;
+        // الانتقال لشاشة اللعب
+        document.getElementById('app').innerHTML = `<h3>جاري تحضير التحدي...</h3><button onclick="update()">ابدأ الآن</button>`;
+        update();
+    }
 
+    async function update() {
+        const inputVal = document.getElementById('ans') ? document.getElementById('ans').value : "";
+        
         const res = await fetch(WEBHOOK, {
             method: 'POST',
-            body: JSON.stringify({ action: state.action, team: state.team, input: inputVal })
+            body: JSON.stringify({ action: state.action, team: state.team, input: inputVal, lang: 'ar' })
         });
         const data = await res.json();
         
-        // تحديث الواجهة بناءً على رد n8n
         document.getElementById('app').innerHTML = `
             <h3>${data.message}</h3>
-            <input id="ans" placeholder="أدخل الإجابة...">
-            <button onclick="update('next')">إرسال</button>
+            <input id="ans" placeholder="الإجابة...">
+            <button onclick="update()">إرسال</button>
         `;
         state.action = data.next_action;
     }
