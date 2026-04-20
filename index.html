@@ -5,93 +5,52 @@
     <title>Elite Hunt Engine</title>
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;700&display=swap');
-        body { margin: 0; background: #050505; color: #fff; font-family: 'Tajawal', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; overflow: hidden; }
-        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(30px); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 40px; width: 350px; text-align: center; box-shadow: 0 20px 50px rgba(0,0,0,0.5); }
+        body { margin: 0; background: #050505; color: #fff; font-family: 'Tajawal', sans-serif; display: flex; justify-content: center; align-items: center; min-height: 100vh; }
+        .glass { background: rgba(255, 255, 255, 0.03); backdrop-filter: blur(20px); border: 1px solid rgba(255,255,255,0.1); padding: 40px; border-radius: 40px; width: 320px; text-align: center; box-shadow: 0 10px 40px rgba(0,0,0,0.8); }
         input, select { width: 100%; padding: 15px; margin: 15px 0; border-radius: 12px; border: none; background: rgba(255,255,255,0.05); color: #00f2ff; text-align: center; box-sizing: border-box; }
-        button { background: #00f2ff; color: #000; border: none; padding: 15px; border-radius: 12px; cursor: pointer; width: 100%; font-weight: bold; }
+        button { background: #00f2ff; color: #000; padding: 15px; border-radius: 12px; border: none; cursor: pointer; width: 100%; font-weight: bold; margin-top: 10px; }
         .hidden { display: none; }
     </style>
 </head>
 <body>
 
 <div class="glass" id="app">
-    <div id="screen-intro">
+    <div id="intro">
         <h1>Elite Challenge</h1>
-        <p>ابدأ المسابقة، وسيقوم المحرك الذكي بتوليد أسئلتك وتحدياتك فوراً.</p>
+        <p>نظام ذكي لتحدي الفرق. 4 أسئلة لكل مرحلة، تليها شفرة سرية.</p>
         <select id="team"><option>الفريق الأول</option><option>الفريق الثاني</option><option>الفريق الثالث</option></select>
         <button onclick="startGame()">بدء المسابقة</button>
     </div>
 
-    <div id="screen-quiz" class="hidden">
-        <h3 id="qText">جاري جلب التحدي...</h3>
-        <input type="text" id="ans" placeholder="الإجابة...">
-        <button onclick="checkAnswer()">تأكيد</button>
-    </div>
-
-    <div id="screen-code" class="hidden">
-        <h2 style="color:#00f2ff">فك الشفرة (6 أرقام)</h2>
-        <p id="hint"></p>
-        <input type="number" id="codeIn" placeholder="------">
-        <button onclick="verifyCode()">إرسال الشفرة</button>
+    <div id="game" class="hidden">
+        <h3 id="display-area">جاري التواصل مع المحرك...</h3>
+        <input type="text" id="user-input" placeholder="الإجابة أو الشفرة...">
+        <button id="main-btn" onclick="sendAction()">تأكيد</button>
     </div>
 </div>
 
 <script>
-    let game = { team: "", stage: 1, currentQ: 0 };
-    // الرابط الذي زودتني به
-    const WEBHOOK_URL = "https://voxa-3a7ac828dfb6.herokuapp.com/webhook/46a95cc8-6b1e-4889-8dc2-2b882a27c9ef";
+    const WEBHOOK = "https://voxa-3a7ac828dfb6.herokuapp.com/webhook/46a95cc8-6b1e-4889-8dc2-2b882a27c9ef";
+    let state = { action: 'getQ', team: '' };
 
     async function startGame() {
-        game.team = document.getElementById('team').value;
-        document.getElementById('screen-intro').classList.add('hidden');
-        document.getElementById('screen-quiz').classList.remove('hidden');
-        fetchQuestion();
+        state.team = document.getElementById('team').value;
+        document.getElementById('intro').classList.add('hidden');
+        document.getElementById('game').classList.remove('hidden');
+        sendAction();
     }
 
-    async function fetchQuestion() {
-        const res = await fetch(WEBHOOK_URL, { 
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ action: 'getQ', team: game.team }) 
-        });
-        const data = await res.json();
-        document.getElementById('qText').innerText = data.question;
-    }
-
-    async function checkAnswer() {
-        const ans = document.getElementById('ans').value;
-        const res = await fetch(WEBHOOK_URL, { 
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ action: 'checkA', answer: ans }) 
-        });
+    async function sendAction() {
+        const val = document.getElementById('user-input').value;
+        const payload = { action: state.action, team: state.team, input: val };
+        
+        const res = await fetch(WEBHOOK, { method: 'POST', body: JSON.stringify(payload) });
         const data = await res.json();
         
-        if(data.status === 'correct') {
-            game.currentQ++;
-            if(game.currentQ % 4 === 0) {
-                document.getElementById('screen-quiz').classList.add('hidden');
-                document.getElementById('screen-code').classList.remove('hidden');
-                document.getElementById('hint').innerText = data.locationHint;
-            } else { fetchQuestion(); }
-        } else { alert("حاول مجدداً!"); }
-    }
-
-    async function verifyCode() {
-        const code = document.getElementById('codeIn').value;
-        const res = await fetch(WEBHOOK_URL, { 
-            method: 'POST', 
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify({ action: 'checkCode', code: code }) 
-        });
-        const data = await res.json();
-        
-        if(data.status === 'success') {
-            alert("ممتاز! انتقل للمرحلة التالية.");
-            document.getElementById('screen-code').classList.add('hidden');
-            document.getElementById('screen-quiz').classList.remove('hidden');
-            fetchQuestion();
-        } else { alert("رقم خاطئ!"); }
+        // n8n سيرد بالمنطق التالي:
+        document.getElementById('display-area').innerText = data.message;
+        state.action = data.nextAction; // المحرك هو من يقرر الخطوة القادمة
+        document.getElementById('user-input').value = '';
     }
 </script>
 </body>
